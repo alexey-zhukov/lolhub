@@ -1,0 +1,9 @@
+application: lolhub
+version: 1-0-0-main
+runtime: python
+api_version: 1
+
+handlers:
+- url: /.*
+  script: lolhub.py
+
