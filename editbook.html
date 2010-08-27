@@ -1,0 +1,17 @@
+<html>
+	<head><title>lolhub: books</title></head>
+	<body>
+		<form action="/savebook?key={{ book.key }}" method="post">
+			<p>Edit book:</p>
+			<div>Author:<input type="text" name="author" value="{{ book.author|escape }}"/></div>
+			<div>Title:<input type="text" name="title" value="{{ book.title|escape }}"/></div>
+			<div>Year:<input type="text" name="year" value="{{ book.year }}"/></div>
+			<div>Total pages:<input type="text" name="total_pages" value="{{ book.total_pages }}"/></div>
+			<div>Current page:<input type="text" name="current_page" value="{{ book.current_page }}"/></div>
+			<div><input type="submit" value="save"/></div>
+		</form>
+		<br/>
+		<a href="{{ logout_url }}">Logout</a>
+	</body>
+</html>
+
