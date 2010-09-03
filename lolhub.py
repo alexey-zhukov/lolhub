@@ -19,7 +19,8 @@ class MainPage(webapp.RequestHandler):
         if (users.get_current_user() == None):
             self.redirect(users.create_login_url(self.request.uri))
         else:
-            books = db.GqlQuery("select * from Book where user = :1 order by date_edited desc",
+            books = db.GqlQuery('select * from Book where user = :1 order by' +
+                                ' date_edited desc',
                                 users.get_current_user())
             logout_url = users.create_logout_url(self.request.uri)
             values = { 'books' : books, 'logout_url' : logout_url,
@@ -38,13 +39,16 @@ class AddBook(webapp.RequestHandler):
             book.title = self.request.get("title")
             try:
                 book.total_pages = int(self.request.get("total_pages"))
-            except ValueError: book.total_pages = 0
+            except ValueError:
+                book.total_pages = 0
             try:
                 book.current_page = int(self.request.get("current_page"))
-            except ValueError: book.current_page = 0
+            except ValueError:
+                book.current_page = 0
             try:
                 book.year = int(self.request.get("year"))
-            except ValueError: book.year = 0
+            except ValueError:
+                book.year = 0
             book.put()
             self.redirect("/")
 
@@ -72,13 +76,16 @@ class SaveBook(webapp.RequestHandler):
                 book.title = self.request.get("title")
                 try:
                     book.total_pages = int(self.request.get("total_pages"))
-                except ValueError: pass
+                except ValueError:
+                    book.total_pages = book.total_pages
                 try:
                     book.current_page = int(self.request.get("current_page"))
-                except ValueError: pass
+                except ValueError:
+                    book.current_page = book.current_page
                 try:
                     book.year = int(self.request.get("year"))
-                except ValueError: pass
+                except ValueError:
+                    book.year = book.year
                 book.put()
                 self.redirect("/")
 
