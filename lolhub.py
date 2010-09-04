@@ -76,16 +76,13 @@ class SaveBook(webapp.RequestHandler):
                 book.title = self.request.get("title")
                 try:
                     book.total_pages = int(self.request.get("total_pages"))
-                except ValueError:
-                    book.total_pages = book.total_pages
+                except ValueError: pass
                 try:
                     book.current_page = int(self.request.get("current_page"))
-                except ValueError:
-                    book.current_page = book.current_page
+                except ValueError: pass
                 try:
                     book.year = int(self.request.get("year"))
-                except ValueError:
-                    book.year = book.year
+                except ValueError: pass
                 book.put()
                 self.redirect("/")
 
