@@ -1,0 +1,16 @@
+<html>
+  <head><title>lolhub: edit profile</title></head>
+  <body>
+    <form action="/saveprofile" method="post">
+      <p>Edit profile:</p>
+      {% if profile %}
+      <div>Your username: {{ profile.username|escape }}</div>
+      {% else %}
+      <div>username:<input type="text" name="username" value="{{ profile.username|escape }}"/></div>
+      {% endif %}
+      <div><input type="submit" value="save"/></div>
+    </form>
+    <br/>
+    <a href="{{ logout_url }}">Logout</a>
+  </body>
+</html>
