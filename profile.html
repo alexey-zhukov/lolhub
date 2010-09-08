@@ -1,7 +1,7 @@
 <html>
   <head><title>lolhub: {{ username }}</title></head>
   <body>
-    <div>Hello, {{ nickname|default_if_none:"anonymous" }}</div>
+    {% include toolbar %}
     <div>This is profile page of {{ username }}</div>
   </body>
 </html>

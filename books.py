@@ -4,7 +4,7 @@ from google.appengine.api import users
 import os
 
 class Book(db.Model):
-    user = db.UserProperty()
+    userid = db.StringProperty()
     author = db.StringProperty()
     title = db.StringProperty()
     total_pages = db.IntegerProperty()
@@ -43,8 +43,13 @@ class EditBook(webapp.RequestHandler):
             self.redirect(users.create_login_url(self.request.uri))
         else:
             book = db.get(db.Key(self.request.get("key")))
-            logout_url = users.create_logout_url(self.request.uri)
-            values = { 'book' : book, 'logout_url' : logout_url }
+            values = {
+                'toolbar' : os.path.join(os.path.dirname(__file__), 'toolbar.html'),
+                'login_url' : users.create_login_url(self.request.uri),
+                'logout_url' : users.create_logout_url(self.request.uri),
+                'user' : users.get_current_user(),
+                'book' : book,
+                }
             path = os.path.join(os.path.dirname(__file__), 'editbook.html')
             self.response.out.write(template.render(path, values))
 

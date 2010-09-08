@@ -1,6 +1,7 @@
 <html>
   <head><title>lolhub: edit profile</title></head>
   <body>
+    {% include toolbar %}
     <form action="/saveprofile" method="post">
       <p>Edit profile:</p>
       {% if profile %}
@@ -11,6 +12,5 @@
       <div><input type="submit" value="save"/></div>
     </form>
     <br/>
-    <a href="{{ logout_url }}">Logout</a>
   </body>
 </html>

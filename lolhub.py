@@ -16,20 +16,37 @@ class MainPage(webapp.RequestHandler):
                                 ' date_edited desc',
                                 users.get_current_user())
             logout_url = users.create_logout_url(self.request.uri)
-            values = { 'books' : books, 'logout_url' : logout_url,
-                       'nickname' : users.get_current_user().nickname() }
+            values = {
+                'toolbar' : os.path.join(os.path.dirname(__file__), 'toolbar.html'),
+                'login_url' : users.create_login_url(self.request.uri),
+                'logout_url' : users.create_logout_url(self.request.uri),
+                'user' : users.get_current_user(),
+                'books' : books,
+                }
             path = os.path.join(os.path.dirname(__file__), 'books.html')
             self.response.out.write(template.render(path, values))
 
 class AccessDenied(webapp.RequestHandler):
     def get(self):
+        values = {
+            'toolbar' : os.path.join(os.path.dirname(__file__), 'toolbar.html'),
+            'login_url' : users.create_login_url(self.request.uri),
+            'logout_url' : users.create_logout_url(self.request.uri),
+            'user' : users.get_current_user(),
+            }
         path = os.path.join(os.path.dirname(__file__), 'accessdenied.html')
-        self.response.out.write(template.render(path, {}))
+        self.response.out.write(template.render(path, values))
 
 class NotFound(webapp.RequestHandler):
     def get(self):
+        values = {
+            'toolbar' : os.path.join(os.path.dirname(__file__), 'toolbar.html'),
+            'login_url' : users.create_login_url(self.request.uri),
+            'logout_url' : users.create_logout_url(self.request.uri),
+            'user' : users.get_current_user(),
+            }
         path = os.path.join(os.path.dirname(__file__), 'notfound.html')
-        self.response.out.write(template.render(path, {}))
+        self.response.out.write(template.render(path, values))
 
 application = webapp.WSGIApplication([
         ("/", MainPage),

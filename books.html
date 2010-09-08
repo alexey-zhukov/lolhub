@@ -1,23 +1,22 @@
 <html>
-	<head><title>lolhub: books</title></head>
-	<body>
-		<div>Hello, {{ nickname }}</div>
-		<div>List of your books:</div><hr/>
-		{% for book in books %}
-		<b>{{ book.title|escape }}</b> by {{ book.author|escape }}, {{ book.year }} ({{ book.current_page}} / {{ book.total_pages }}) [<a href="/editbook?key={{ book.key }}">edit</a>] [<a href="/delete?key={{ book.key }}">delete</a>]
-		<br/><hr/>
-		{% endfor %}
-		<form action="/addbook" method="post">
-			<p>Add new book:</p>
-			<div>Author:<input type="text" name="author"/></div>
-			<div>Title:<input type="text" name="title"/></div>
-			<div>Year:<input type="text" name="year"/></div>
-			<div>Total pages:<input type="text" name="total_pages"/></div>
-			<div>Current page:<input type="text" name="current_page"/></div>
-			<div><input type="submit" value="add"/></div>
-		</form>
-		<br/>
-        <a href="/editprofile">Edit your profile</a><br/>
-		<a href="{{ logout_url }}">Logout</a>
-	</body>
+  <head><title>lolhub: books</title></head>
+  <body>
+    {% include toolbar %}
+	<div>List of your books:</div><hr/>
+	{% for book in books %}
+	<b>{{ book.title|escape }}</b> by {{ book.author|escape }}, {{ book.year }} ({{ book.current_page}} / {{ book.total_pages }}) [<a href="/editbook?key={{ book.key }}">edit</a>] [<a href="/delete?key={{ book.key }}">delete</a>]
+	<br/><hr/>
+	{% endfor %}
+	<form action="/addbook" method="post">
+	  <p>Add new book:</p>
+	  <div>Author:<input type="text" name="author"/></div>
+	  <div>Title:<input type="text" name="title"/></div>
+	  <div>Year:<input type="text" name="year"/></div>
+	  <div>Total pages:<input type="text" name="total_pages"/></div>
+	  <div>Current page:<input type="text" name="current_page"/></div>
+	  <div><input type="submit" value="add"/></div>
+	</form>
+	<br/>
+    <a href="/editprofile">Edit your profile</a><br/>
+  </body>
 </html>
