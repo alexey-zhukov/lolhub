@@ -6,8 +6,8 @@ import os
 import blog
 
 class Profile(db.Model):
+    user = db.UserProperty()
     userid = db.StringProperty()
-    username = db.StringProperty()
 
 class ShowProfile(webapp.RequestHandler):
     def get(self, userid):

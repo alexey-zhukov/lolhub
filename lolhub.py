@@ -6,55 +6,44 @@ import os
 
 import books
 import profile
+import helper
 
 class MainPage(webapp.RequestHandler):
     def get(self):
-        if (users.get_current_user() == None):
-            self.redirect(users.create_login_url(self.request.uri))
-        else:
-            books = db.GqlQuery('select * from Book where user = :1 order by' +
-                                ' date_edited desc',
-                                users.get_current_user())
-            logout_url = users.create_logout_url(self.request.uri)
-            values = {
-                'toolbar' : os.path.join(os.path.dirname(__file__), 'toolbar.html'),
-                'login_url' : users.create_login_url(self.request.uri),
-                'logout_url' : users.create_logout_url(self.request.uri),
-                'user' : users.get_current_user(),
-                'books' : books,
-                }
-            path = os.path.join(os.path.dirname(__file__), 'books.html')
-            self.response.out.write(template.render(path, values))
+        path = os.path.join(os.path.dirname(__file__), 'mainpage.html')
+        self.response.out.write(template.render(path, helper.values(self.request.uri)))
+        #if (users.get_current_user() == None):
+        #    self.redirect(users.create_login_url(self.request.uri))
+        #else:
+        #    books = db.GqlQuery('select * from Book where userid = :1 order by' +
+        #                        ' date_edited desc',
+        #                        users.get_current_user().user_id())
+        #    logout_url = users.create_logout_url(self.request.uri)
+        #    values = { 'books' : books }
+        #    values.update(helper.values(self.request.uri))
+        #    path = os.path.join(os.path.dirname(__file__), 'books.html')
+        #    self.response.out.write(template.render(path, values))
 
 class AccessDenied(webapp.RequestHandler):
     def get(self):
-        values = {
-            'toolbar' : os.path.join(os.path.dirname(__file__), 'toolbar.html'),
-            'login_url' : users.create_login_url(self.request.uri),
-            'logout_url' : users.create_logout_url(self.request.uri),
-            'user' : users.get_current_user(),
-            }
         path = os.path.join(os.path.dirname(__file__), 'accessdenied.html')
-        self.response.out.write(template.render(path, values))
+        self.response.out.write(template.render(path, helper.values(self.request.uri)))
 
 class NotFound(webapp.RequestHandler):
     def get(self):
-        values = {
-            'toolbar' : os.path.join(os.path.dirname(__file__), 'toolbar.html'),
-            'login_url' : users.create_login_url(self.request.uri),
-            'logout_url' : users.create_logout_url(self.request.uri),
-            'user' : users.get_current_user(),
-            }
         path = os.path.join(os.path.dirname(__file__), 'notfound.html')
-        self.response.out.write(template.render(path, values))
+        self.response.out.write(template.render(path, helper.values(self.request.uri)))
 
 application = webapp.WSGIApplication([
         ("/", MainPage),
+        (r'/books/([\d\w]+)', books.ViewBooks),
+
+        ("/notfound", NotFound),
+        ("/accessdenied", AccessDenied),
+
         ("/addbook", books.AddBook),
         ("/editbook", books.EditBook),
         ("/savebook", books.SaveBook),
-        ("/accessdenied", AccessDenied),
-        ("/notfound", NotFound),
         ("/delete", books.DeleteBook),
         (r'/profile/(.*)', profile.ShowProfile),
         ("/editprofile", profile.EditProfile),

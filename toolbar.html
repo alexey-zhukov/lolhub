@@ -2,6 +2,9 @@
 <p><b><a href="/">lolhub</a></b> :
 hello&nbsp;<a href="/profile/{{ user.user_id }}"><b>{{ user.nickname }}</b></a>,
 you can <a href="{{ logout_url }}">logout</a></p>
+{% if not profile %}
+<a href="/saveprofile/{{ user.user_id }}"><b>{{ user.nickname }}</b></a>
+{% endif %}
 {% else %}
 <p><b><a href="/">lolhub</a></b> : welcome, you can <a href="{{ login_url }}">login</a></p>
 {% endif %}

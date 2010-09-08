@@ -15,3 +15,9 @@ indexes:
   - name: user
   - name: date_edited
     direction: desc
+
+- kind: Book
+  properties:
+  - name: userid
+  - name: date_edited
+    direction: desc
