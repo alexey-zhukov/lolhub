@@ -13,15 +13,12 @@ class Post(db.Model):
     content = db.TextProperty()
     date_posted = db.DateTimeProperty(auto_now_add = True)
     date_edited = db.DateTimeProperty(auto_now = True)
-    def content2(self):
-        new_content = self.content
-        new_content = new_content.replace('&', '&amp;')
-        new_content = new_content.replace(' ', '&nbsp;')
-        new_content = new_content.replace('<', '&lt;')
-        new_content = new_content.replace('>', '&gt;')
-        new_content = new_content.replace("'", '&#39;')
-        new_content = new_content.replace('"', '&quot;')
-        return new_content
+    def preview_full(self):
+        return len(self.content) <= 500
+    def content_preview(self):
+        return  self.content[:500]
+    def date_posted_formatted(self):
+        return self.date_posted.strftime("%d.%m.%Y %H:%M")
 
 class ViewBlog(webapp.RequestHandler):
     def get(self, userid):

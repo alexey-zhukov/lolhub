@@ -10,8 +10,8 @@
     {% endifequal %}
 
 	{% for post in posts %}
-	<p><b><a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.title|escape }}</a></b></p>
-    <blockquote style="border-width: 1px; border-style: solid; border-color: gray;">{{ post.content2|linebreaksbr }}</blockquote>
+	<p><b><a href="/blog/{{ owner.id }}/{{ post.id }}"><span style="font-size:20px">{{ post.title|escape }}</span></a> <span style="font-size:14px;align=right">(<a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.date_posted_formatted }}</a>)</span></b></p>
+    <p style="border-width: 1px; border-style: solid; border-color: gray;">{{ post.content_preview|escape|linebreaksbr }}{% if not post.preview_full %}... <a href="/blog/{{ owner.id }}/{{ post.id }}">view full post</a>{% endif %}</p>
 
     {% ifequal owner.id user.id %}
     [<a href="/editpost?key={{ post.key }}">edit</a>]

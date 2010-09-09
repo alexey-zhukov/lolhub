@@ -1,5 +1,5 @@
 <html>
-  <head><title>lolhub: books</title></head>
+  <head><title>lolhub: blog</title></head>
   <body>
     {% include toolbar %}
 
@@ -8,7 +8,7 @@
 	  <p>Edit post:</p>
 	  <div>Title:<input type="text" name="title" value="{{ post.title|escape }}"/></div>
       <div>
-        Content:<textarea name="content" rows="40" cols="80">{{ post.content|escape }}</textarea>
+        Content:<textarea name="content" rows="20" cols="80">{{ post.content|escape }}</textarea>
       </div>
 	  <div><input type="submit" value="save"/></div>
 	</form>

@@ -4,10 +4,11 @@
     {% include toolbar %}
     <b>Welcome to lolhub!</b><br/>
     {% if user %}
-    <a href="/books/{{ user.id }}">manage your reading list</a><br/>
-    <a href="/blog/{{ user.id }}">manage your blog</a><br/>
+    <p><a href="/books/{{ user.id }}">manage your reading list</a></p>
+    <p><a href="/blog/{{ user.id }}">manage your blog</a></p>
     {% else %}
-    You can login yo lolhub with Google account and use lolhub services (books & blog)
+    <p>You can login yo lolhub with Google account and use lolhub services (books & blog)</p>
     {% endif %}
+    <span style="font-size:10px">webmaster: alekseyrybalkin [gmail] (<a href="http://github.com/alekseyrybalkin/lolhub">github home</a>)</span>
   </body>
 </html>
