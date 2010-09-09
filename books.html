@@ -2,21 +2,27 @@
   <head><title>lolhub: books</title></head>
   <body>
     {% include toolbar %}
-	<div>List of books:</div><hr/>
+
+    {% ifequal owner user %}
+	<div>List of your books:</div><hr/>
+    {% else %}
+	<div>List of books of {{ owner.nickname }}:</div><hr/>
+    {% endifequal %}
+
 	{% for book in books %}
-	<b>{{ book.title|escape }}</b> by {{ book.author|escape }}, {{ book.year }} ({{ book.current_page}} / {{ book.total_pages }}) <!--[<a href="/editbook?key={{ book.key }}">edit</a>] [<a href="/delete?key={{ book.key }}">delete</a>]-->
+	<b>{{ book.title|escape }}</b>
+    by {{ book.author|escape }}, {{ book.year }}
+    ({{ book.current_page}} / {{ book.total_pages }})
+
+    {% ifequal owner user %}
+    [<a href="/editbook?key={{ book.key }}">edit</a>]
+    [<a href="/deletebook?key={{ book.key }}">delete</a>]
+    {% endifequal %}
 	<br/><hr/>
 	{% endfor %}
-<!--	<form action="/addbook" method="post">
-	  <p>Add new book:</p>
-	  <div>Author:<input type="text" name="author"/></div>
-	  <div>Title:<input type="text" name="title"/></div>
-	  <div>Year:<input type="text" name="year"/></div>
-	  <div>Total pages:<input type="text" name="total_pages"/></div>
-	  <div>Current page:<input type="text" name="current_page"/></div>
-	  <div><input type="submit" value="add"/></div>
-	</form>
-	<br/>
-    <a href="/editprofile">Edit your profile</a><br/>-->
+
+    {% ifequal owner user %}
+    <a href="/editbook">add new book</a>
+    {% endifequal %}
   </body>
 </html>

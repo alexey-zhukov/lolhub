@@ -1,0 +1,26 @@
+<html>
+  <head><title>lolhub: blog</title></head>
+  <body>
+    {% include toolbar %}
+
+    {% ifequal owner user %}
+	<div>Your blog:</div><hr/>
+    {% else %}
+	<div>This is blog of {{ owner.nickname }}:</div><hr/>
+    {% endifequal %}
+
+	{% for post in posts %}
+	<b>{{ post.title|escape }}</b> : {{ post.content|escape }}
+
+    {% ifequal owner user %}
+    [<a href="/editpost?key={{ post.key }}">edit</a>]
+    [<a href="/deletepost?key={{ post.key }}">delete</a>]
+    {% endifequal %}
+	<br/><hr/>
+	{% endfor %}
+
+    {% ifequal owner user %}
+    <a href="/editpost">add new post</a>
+    {% endifequal %}
+  </body>
+</html>

@@ -2,6 +2,8 @@
   <head><title>lolhub: books</title></head>
   <body>
     {% include toolbar %}
+
+    {% if book %}
 	<form action="/savebook?key={{ book.key }}" method="post">
 	  <p>Edit book:</p>
 	  <div>Author:<input type="text" name="author" value="{{ book.author|escape }}"/></div>
@@ -11,6 +13,17 @@
 	  <div>Current page:<input type="text" name="current_page" value="{{ book.current_page }}"/></div>
 	  <div><input type="submit" value="save"/></div>
 	</form>
+    {% else %}
+	<form action="/savebook" method="post">
+	  <p>New book:</p>
+	  <div>Author:<input type="text" name="author" value=""/></div>
+	  <div>Title:<input type="text" name="title" value=""/></div>
+	  <div>Year:<input type="text" name="year" value=""/></div>
+	  <div>Total pages:<input type="text" name="total_pages" value=""/></div>
+	  <div>Current page:<input type="text" name="current_page" value=""/></div>
+	  <div><input type="submit" value="save"/></div>
+	</form>
+    {% endif %}
 	<br/>
   </body>
 </html>

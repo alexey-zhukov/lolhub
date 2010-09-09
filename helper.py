@@ -15,3 +15,17 @@ def values(uri):
         'profile' : profile
         }
     return values
+
+def profile(userid):
+    return db.GqlQuery('select * from Profile where userid = :1', userid).get()
+
+def check_for_profile(handler):
+    user = users.get_current_user()
+    if not user:
+        handler.redirect(users.create_login_url(handler.request.uri))
+        return False
+    prof = profile(user.user_id())
+    if not prof:
+        handler.redirect('/saveyourprofile')
+        return False
+    return True

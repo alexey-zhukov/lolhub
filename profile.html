@@ -2,6 +2,16 @@
   <head><title>lolhub: {{ username }}</title></head>
   <body>
     {% include toolbar %}
-    <div>This is profile page of {{ username }}</div>
+
+    {% ifequal owner user %}
+	<div>This is your profile page</div>
+    <div><a href="/books/{{ owner.user_id }}">Your books</a></div>
+    <div><a href="/blog/{{ owner.user_id }}">Your blog</a></div>
+    {% else %}
+    <div>This is profile page of {{ owner.nickname }}</div>
+    <div><a href="/books/{{ owner.user_id }}">His books</a></div>
+    <div><a href="/blog/{{ owner.user_id }}">His blog</a></div>
+    {% endifequal %}
+
   </body>
 </html>

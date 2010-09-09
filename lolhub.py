@@ -7,22 +7,12 @@ import os
 import books
 import profile
 import helper
+import blog
 
 class MainPage(webapp.RequestHandler):
     def get(self):
         path = os.path.join(os.path.dirname(__file__), 'mainpage.html')
         self.response.out.write(template.render(path, helper.values(self.request.uri)))
-        #if (users.get_current_user() == None):
-        #    self.redirect(users.create_login_url(self.request.uri))
-        #else:
-        #    books = db.GqlQuery('select * from Book where userid = :1 order by' +
-        #                        ' date_edited desc',
-        #                        users.get_current_user().user_id())
-        #    logout_url = users.create_logout_url(self.request.uri)
-        #    values = { 'books' : books }
-        #    values.update(helper.values(self.request.uri))
-        #    path = os.path.join(os.path.dirname(__file__), 'books.html')
-        #    self.response.out.write(template.render(path, values))
 
 class AccessDenied(webapp.RequestHandler):
     def get(self):
@@ -34,20 +24,30 @@ class NotFound(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'notfound.html')
         self.response.out.write(template.render(path, helper.values(self.request.uri)))
 
+class SaveYourProfile(webapp.RequestHandler):
+    def get(self):
+        path = os.path.join(os.path.dirname(__file__), 'saveyourprofile.html')
+        self.response.out.write(template.render(path, helper.values(self.request.uri)))
+
 application = webapp.WSGIApplication([
-        ("/", MainPage),
-        (r'/books/([\d\w]+)', books.ViewBooks),
+        ('/', MainPage),
 
-        ("/notfound", NotFound),
-        ("/accessdenied", AccessDenied),
+        (r'/books/([\d\w_]+)', books.ViewBooks),
+        ('/editbook', books.EditBook),
+        ('/deletebook', books.DeleteBook),
+        ('/savebook', books.SaveBook),
 
-        ("/addbook", books.AddBook),
-        ("/editbook", books.EditBook),
-        ("/savebook", books.SaveBook),
-        ("/delete", books.DeleteBook),
-        (r'/profile/(.*)', profile.ShowProfile),
-        ("/editprofile", profile.EditProfile),
-        ("/saveprofile", profile.SaveProfile),
+        (r'/profile/([\d\w_]+)', profile.ViewProfile),
+        ('/saveprofile', profile.SaveProfile),
+
+        (r'/blog/([\d\w_]+)', blog.ViewBlog),
+        ('/editpost', blog.EditPost),
+        ('/deletepost', blog.DeletePost),
+        ('/savepost', blog.SavePost),
+
+        ('/notfound', NotFound),
+        ('/accessdenied', AccessDenied),
+        ('/saveyourprofile', SaveYourProfile),
         ], debug = True)
 
 def main():
