@@ -3,14 +3,14 @@
   <body>
     {% include toolbar %}
 
-    {% ifequal owner user %}
+    {% ifequal owner.id user.id %}
 	<div>This is your profile page</div>
-    <div><a href="/books/{{ owner.user_id }}">Your books</a></div>
-    <div><a href="/blog/{{ owner.user_id }}">Your blog</a></div>
+    <div><a href="/books/{{ owner.id }}">Your books</a></div>
+    <div><a href="/blog/{{ owner.id }}">Your blog</a></div>
     {% else %}
-    <div>This is profile page of {{ owner.nickname }}</div>
-    <div><a href="/books/{{ owner.user_id }}">His books</a></div>
-    <div><a href="/blog/{{ owner.user_id }}">His blog</a></div>
+    <div>This is profile page of {{ owner.user.nickname }}</div>
+    <div><a href="/books/{{ owner.id }}">His books</a></div>
+    <div><a href="/blog/{{ owner.id }}">His blog</a></div>
     {% endifequal %}
 
   </body>

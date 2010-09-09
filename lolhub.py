@@ -44,10 +44,12 @@ application = webapp.WSGIApplication([
         ('/editpost', blog.EditPost),
         ('/deletepost', blog.DeletePost),
         ('/savepost', blog.SavePost),
+        (r'/blog/([\d\w_]+)/([\d\w_]+)', blog.ViewPost),
 
         ('/notfound', NotFound),
         ('/accessdenied', AccessDenied),
         ('/saveyourprofile', SaveYourProfile),
+        (r'/.*', NotFound),
         ], debug = True)
 
 def main():

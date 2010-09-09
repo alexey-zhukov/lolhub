@@ -1,11 +1,13 @@
-{% if user %}
+<div style="background:#eeeeaa">
+{% if google_user %}
 <p><b><a href="/">lolhub</a></b> :
-  hello&nbsp;<a href="/profile/{{ user.user_id }}"><b>{{ user.nickname }}</b></a>,
+  hello&nbsp;<a href="/profile/{{ user.id }}"><b>{{ google_user.nickname }}</b></a>,
   you can <a href="{{ logout_url }}">logout</a>
-  {% if not profile %}
+  {% if not user %}
   <a href="/saveprofile"><b>(save your profile to use services)</b></a>
   {% endif %}
 </p>
 {% else %}
 <p><b><a href="/">lolhub</a></b> : welcome, you can <a href="{{ login_url }}">login</a></p>
 {% endif %}
+</div>

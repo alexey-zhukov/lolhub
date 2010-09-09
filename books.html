@@ -3,10 +3,10 @@
   <body>
     {% include toolbar %}
 
-    {% ifequal owner user %}
+    {% ifequal owner.id user.id %}
 	<div>List of your books:</div><hr/>
     {% else %}
-	<div>List of books of {{ owner.nickname }}:</div><hr/>
+	<div>List of books of {{ owner.user.nickname }}:</div><hr/>
     {% endifequal %}
 
 	{% for book in books %}
@@ -14,14 +14,14 @@
     by {{ book.author|escape }}, {{ book.year }}
     ({{ book.current_page}} / {{ book.total_pages }})
 
-    {% ifequal owner user %}
+    {% ifequal owner.id user.id %}
     [<a href="/editbook?key={{ book.key }}">edit</a>]
     [<a href="/deletebook?key={{ book.key }}">delete</a>]
     {% endifequal %}
 	<br/><hr/>
 	{% endfor %}
 
-    {% ifequal owner user %}
+    {% ifequal owner.id user.id %}
     <a href="/editbook">add new book</a>
     {% endifequal %}
   </body>

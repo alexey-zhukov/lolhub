@@ -7,6 +7,7 @@ import blog
 import helper
 
 class Profile(db.Model):
+    id = db.IntegerProperty()
     user = db.UserProperty()
     userid = db.StringProperty()
 
@@ -16,7 +17,7 @@ class ViewProfile(webapp.RequestHandler):
         if not profile:
             self.redirect('/notfound')
         else:
-            values = { 'owner' : profile.user }
+            values = { 'owner' : profile }
             values.update(helper.values(self.request.uri))
             path = os.path.join(os.path.dirname(__file__), 'profile.html')
             self.response.out.write(template.render(path, values))
@@ -27,10 +28,15 @@ class SaveProfile(webapp.RequestHandler):
         if (not user):
             self.redirect(users.create_login_url(self.request.uri))
         else:
-            profile = helper.profile(user.user_id())
+            profile = helper.profile_by_google_user_id(user.user_id())
             if (not profile):
                 profile = Profile()
                 profile.userid = user.user_id()
                 profile.user = user
+                maxProfile = Profile.all().order("-id").get()
+                if not maxProfile or not maxProfile.id:
+                    profile.id = 1
+                else:
+                    profile.id = maxProfile.id + 1
                 profile.put()
             self.redirect('/')

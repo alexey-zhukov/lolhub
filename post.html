@@ -4,24 +4,17 @@
     {% include toolbar %}
 
     {% ifequal owner.id user.id %}
-	<div>Your blog:</div><hr/>
+    <a href="/blog/{{ owner.id }}">Back to your blog</a>
     {% else %}
-	<div>This is blog of {{ owner.user.nickname }}:</div><hr/>
+    <a href="/blog/{{ owner.id }}">View all posts by {{ owner.user.nickname }}</a>
     {% endifequal %}
 
-	{% for post in posts %}
 	<p><b><a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.title|escape }}</a></b></p>
     <blockquote style="border-width: 1px; border-style: solid; border-color: gray;">{{ post.content2|linebreaksbr }}</blockquote>
 
     {% ifequal owner.id user.id %}
     [<a href="/editpost?key={{ post.key }}">edit</a>]
     [<a href="/deletepost?key={{ post.key }}">delete</a>]
-    {% endifequal %}
-	<br/><hr/>
-	{% endfor %}
-
-    {% ifequal owner.id user.id %}
-    <a href="/editpost">add new post</a>
     {% endifequal %}
   </body>
 </html>

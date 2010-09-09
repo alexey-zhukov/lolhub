@@ -7,14 +7,18 @@
 	<form action="/savepost?key={{ post.key }}" method="post">
 	  <p>Edit post:</p>
 	  <div>Title:<input type="text" name="title" value="{{ post.title|escape }}"/></div>
-	  <div>Content:<input type="text" name="content" value="{{ post.content|escape }}"/></div>
+      <div>
+        Content:<textarea name="content" rows="40" cols="80">{{ post.content|escape }}</textarea>
+      </div>
 	  <div><input type="submit" value="save"/></div>
 	</form>
     {% else %}
 	<form action="/savepost" method="post">
 	  <p>New post:</p>
 	  <div>Title:<input type="text" name="title" value=""/></div>
-	  <div>Content:<input type="text" name="content" value=""/></div>
+      <div>
+        Content:<textarea name="content" rows="20" cols="80"></textarea>
+      </div>
 	  <div><input type="submit" value="save"/></div>
 	</form>
     {% endif %}
