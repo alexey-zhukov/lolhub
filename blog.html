@@ -4,10 +4,25 @@
     {% include toolbar %}
 
     {% ifequal owner.id user.id %}
-	<div>Your blog:</div><hr/>
+	<div>Your blog:</div>
     {% else %}
-	<div>This is blog of <a href="/loluser/{{ owner.id }}">{{ owner.user.nickname }}</a>:</div><hr/>
+	<div>This is blog of <a href="/loluser/{{ owner.id }}">{{ owner.user.nickname }}</a>:</div>
     {% endifequal %}
+
+    <center><b>    
+        {% ifnotequal prevpage "-1" %}
+        {% ifequal prevpage "0" %}
+        <a href="/blog/{{ owner.id }}">Previous page</a>
+        {% else %}
+        <a href="/blog/{{ owner.id }}?page={{ prevpage }}">Previous page</a>
+        {% endifequal %}
+        {% endifnotequal %}
+        &nbsp;| page {{ page}} |&nbsp;
+        {% ifnotequal nextpage "-1" %}
+        <a href="/blog/{{ owner.id }}?page={{ nextpage }}">Next page</a>
+        {% endifnotequal %}
+    </b></center>
+    <hr/>
 
 	{% for post in posts %}
 	<p><b><a href="/blog/{{ owner.id }}/{{ post.id }}"><span style="font-size:20px">{{ post.title|escape }}</span></a> <span style="font-size:14px;align=right">(<a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.date_posted_formatted }}</a>)</span></b></p>
@@ -19,6 +34,21 @@
     {% endifequal %}
 	<br/><hr/>
 	{% endfor %}
+
+    <center><b>    
+        {% ifnotequal prevpage "-1" %}
+        {% ifequal prevpage "0" %}
+        <a href="/blog/{{ owner.id }}">Previous page</a>
+        {% else %}
+        <a href="/blog/{{ owner.id }}?page={{ prevpage }}">Previous page</a>
+        {% endifequal %}
+        {% endifnotequal %}
+        &nbsp;| page {{ page}} |&nbsp;
+        {% ifnotequal nextpage "-1" %}
+        <a href="/blog/{{ owner.id }}?page={{ nextpage }}">Next page</a>
+        {% endifnotequal %}
+    </b></center>
+    <br/>
 
     {% ifequal owner.id user.id %}
     <a href="/editpost">add new post</a>
