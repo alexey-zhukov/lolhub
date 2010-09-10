@@ -22,29 +22,29 @@ class Post(db.Model):
 
 class ViewBlog(webapp.RequestHandler):
     def get(self, userid):
-        profile = helper.profile(userid)
-        if not profile:
+        loluser = helper.loluser(userid)
+        if not loluser:
             self.redirect('/notfound')
             return
         posts = db.GqlQuery('select * from Post where userid = :1 order by' +
                             ' date_posted desc',
                             int(userid))
-        values = { 'posts' : posts, 'owner' : profile }
+        values = { 'posts' : posts, 'owner' : loluser }
         values.update(helper.values(self.request.uri))
         path = os.path.join(os.path.dirname(__file__), 'blog.html')
         self.response.out.write(template.render(path, values))
 
 class ViewPost(webapp.RequestHandler):
     def get(self, userid, postid):
-        profile = helper.profile(userid)
-        if not profile:
+        loluser = helper.loluser(userid)
+        if not loluser:
             self.redirect('/notfound')
             return
         post = Post.gql('where id = :1', int(postid)).get()
-        if not post or post.userid != profile.id:
+        if not post or post.userid != loluser.id:
             self.redirect('/notfound')
             return
-        values = { 'post' : post, 'owner' : profile }
+        values = { 'post' : post, 'owner' : loluser }
         values.update(helper.values(self.request.uri))
         path = os.path.join(os.path.dirname(__file__), 'post.html')
         self.response.out.write(template.render(path, values))
@@ -52,15 +52,15 @@ class ViewPost(webapp.RequestHandler):
 class EditPost(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()
-        profile = helper.profile_by_google_user_id(user.user_id())
-        if not helper.check_for_profile(self):
+        loluser = helper.loluser_by_google_user_id(user.user_id())
+        if not helper.check_for_loluser(self):
             return
         if self.request.get('key'):
             post = db.get(db.Key(self.request.get("key")))
             if not post:
                 self.redirect("/notfound")
                 return
-            if post.userid != profile.id:
+            if post.userid != loluser.id:
                 self.redirect("/accessdenied")
                 return
             values = { 'post' : post }
@@ -73,8 +73,8 @@ class EditPost(webapp.RequestHandler):
 class SavePost(webapp.RequestHandler):
     def post(self):
         user = users.get_current_user()
-        profile = helper.profile_by_google_user_id(user.user_id())
-        if not helper.check_for_profile(self):
+        loluser = helper.loluser_by_google_user_id(user.user_id())
+        if not helper.check_for_loluser(self):
             return
         if self.request.get('key'):
             try:        
@@ -85,7 +85,7 @@ class SavePost(webapp.RequestHandler):
             if not helper.check_for_existence_and_ownership(post, self): return
         else:
             post = Post()
-            post.userid = profile.id
+            post.userid = loluser.id
             maxPost = Post.all().order("-id").get()
             if not maxPost or not maxPost.id:
                 post.id = 1
@@ -94,12 +94,12 @@ class SavePost(webapp.RequestHandler):
         post.title = self.request.get("title")
         post.content = self.request.get("content")
         post.put()
-        self.redirect("/blog/" + str(profile.id))
+        self.redirect("/blog/" + str(loluser.id))
                         
 class DeletePost(webapp.RequestHandler):
     def get(self):
-        profile = helper.profile_by_google_user_id(users.get_current_user().user_id())
-        if not helper.check_for_profile(self): return
+        loluser = helper.loluser_by_google_user_id(users.get_current_user().user_id())
+        if not helper.check_for_loluser(self): return
         try:        
             post = db.get(db.Key(self.request.get("key")))
         except BadKeyError:
@@ -107,7 +107,7 @@ class DeletePost(webapp.RequestHandler):
             return
         if not helper.check_for_existence_and_ownership(post, self): return
         post.delete()
-        self.redirect("/blog/" + str(profile.id))
+        self.redirect("/blog/" + str(loluser.id))
 
 def main():
     pass

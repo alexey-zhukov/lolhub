@@ -9,8 +9,8 @@
     <div><a href="/blog/{{ owner.id }}">Your blog</a></div>
     {% else %}
     <div>This is profile page of {{ owner.user.nickname }}</div>
-    <div><a href="/books/{{ owner.id }}">His books</a></div>
-    <div><a href="/blog/{{ owner.id }}">His blog</a></div>
+    <div><a href="/books/{{ owner.id }}">View {{ owner.user.nickname }}'s books</a></div>
+    <div><a href="/blog/{{ owner.id }}">View {{ owner.user.nickname }}'s blog</a></div>
     {% endifequal %}
 
   </body>

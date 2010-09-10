@@ -7,8 +7,12 @@
     <p><a href="/books/{{ user.id }}">manage your reading list</a></p>
     <p><a href="/blog/{{ user.id }}">manage your blog</a></p>
     {% else %}
-    <p>You can login yo lolhub with Google account and use lolhub services (books & blog)</p>
+    {% if google_user %}
+    <p>To use services you now need to <a href="/saveloluser">save your profile</a> (just one click!)</p>
+    {% else %}
+    <p>You can login to lolhub with Google account and use lolhub services (books & blog)</p>
     {% endif %}
-    <span style="font-size:10px">webmaster: alekseyrybalkin [gmail] (<a href="http://github.com/alekseyrybalkin/lolhub">github home</a>)</span>
+    {% endif %}
+    <span style="font-size:10px">webmaster: alekseyrybalkin [at gmail] (<a href="http://github.com/alekseyrybalkin/lolhub">github home</a>)</span>
   </body>
 </html>

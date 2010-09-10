@@ -1,10 +1,10 @@
 <div style="background:#eeeeaa">
 {% if google_user %}
 <p><b><a href="/">lolhub</a></b> :
-  hello&nbsp;<a href="/profile/{{ user.id }}"><b>{{ google_user.nickname }}</b></a>,
+  hello&nbsp;{% if user %}<a href="/loluser/{{ user.id }}">{% endif %}<b>{{ google_user.nickname }}</b>{% if user %}</a>{% endif %},
   you can <a href="{{ logout_url }}">logout</a>
   {% if not user %}
-  <a href="/saveprofile"><b>(save your profile to use services)</b></a>
+  <a href="/saveloluser"><b>(save your profile to use services)</b></a>
   {% endif %}
 </p>
 {% else %}

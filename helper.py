@@ -4,42 +4,42 @@ import os
 
 def values(uri):
     user = users.get_current_user()
-    profile = None
+    lol = None
     if user:
-        profile = db.GqlQuery('select * from Profile where userid = :1', user.user_id()).get()
+        lol = db.GqlQuery('select * from Loluser where userid = :1', user.user_id()).get()
     values = {
         'toolbar' : os.path.join(os.path.dirname(__file__), 'toolbar.html'),
         'login_url' : users.create_login_url(uri),
         'logout_url' : users.create_logout_url(uri),
         'google_user' : user,
-        'user' : profile,
+        'user' : lol,
         }
     return values
 
-def profile(userid):
-    return db.GqlQuery('select * from Profile where id = :1', int(userid)).get()
+def loluser(userid):
+    return db.GqlQuery('select * from Loluser where id = :1', int(userid)).get()
 
-def profile_by_google_user_id(userid):
-    return db.GqlQuery('select * from Profile where userid = :1', userid).get()
+def loluser_by_google_user_id(userid):
+    return db.GqlQuery('select * from Loluser where userid = :1', userid).get()
 
-def check_for_profile(handler):
+def check_for_loluser(handler):
     user = users.get_current_user()
     if not user:
         handler.redirect(users.create_login_url(handler.request.uri))
         return False
-    prof = profile_by_google_user_id(user.user_id())
-    if not prof:
-        handler.redirect('/saveyourprofile')
+    lol = loluser_by_google_user_id(user.user_id())
+    if not lol:
+        handler.redirect('/saveyourloluser')
         return False
     return True
 
 def check_for_existence_and_ownership(entity, handler):
     user = users.get_current_user()
-    profile = profile_by_google_user_id(user.user_id())
+    lol = loluser_by_google_user_id(user.user_id())
     if not entity:
         handler.redirect("/notfound")
         return False
-    if (entity.userid != profile.id):
+    if (entity.userid != lol.id):
         handler.redirect("/accessdenied")
         return False
     return True

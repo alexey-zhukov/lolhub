@@ -17,29 +17,29 @@ class Book(db.Model):
 
 class ViewBooks(webapp.RequestHandler):
     def get(self, userid):
-        profile = helper.profile(userid)
-        if not profile:
+        loluser = helper.loluser(userid)
+        if not loluser:
             self.redirect('/notfound')
             return
         books = db.GqlQuery('select * from Book where userid = :1 order by' +
                             ' date_edited desc',
                             int(userid))
-        values = { 'books' : books, 'owner' : profile }
+        values = { 'books' : books, 'owner' : loluser }
         values.update(helper.values(self.request.uri))
         path = os.path.join(os.path.dirname(__file__), 'books.html')
         self.response.out.write(template.render(path, values))
 
 class EditBook(webapp.RequestHandler):
     def get(self):
-        profile = helper.profile_by_google_user_id(users.get_current_user().user_id())
-        if not helper.check_for_profile(self):
+        loluser = helper.loluser_by_google_user_id(users.get_current_user().user_id())
+        if not helper.check_for_loluser(self):
             return
         if self.request.get('key'):
             book = db.get(db.Key(self.request.get("key")))
             if not book:
                 self.redirect("/notfound")
                 return
-            if book.userid != profile.id:
+            if book.userid != loluser.id:
                 self.redirect("/accessdenied")
                 return
             values = { 'book' : book }
@@ -54,20 +54,20 @@ class SaveBook(webapp.RequestHandler):
         self.redirect('/notfound')
 
     def post(self):
-        profile = helper.profile_by_google_user_id(users.get_current_user().user_id())
-        if not helper.check_for_profile(self):
+        loluser = helper.loluser_by_google_user_id(users.get_current_user().user_id())
+        if not helper.check_for_loluser(self):
             return
         if self.request.get('key'):
             book = db.get(db.Key(self.request.get("key")))
             if not book:
                 self.redirect("/notfound")
                 return
-            if book.userid != profile.id:
+            if book.userid != loluser.id:
                 self.redirect("/accessdenied")
                 return
         else:
             book = Book()
-            book.userid = profile.id
+            book.userid = loluser.id
         book.author = self.request.get("author")
         book.title = self.request.get("title")
         try:
@@ -80,19 +80,19 @@ class SaveBook(webapp.RequestHandler):
             book.year = int(self.request.get("year"))
         except ValueError: pass
         book.put()
-        self.redirect("/books/" + str(profile.id))
+        self.redirect("/books/" + str(loluser.id))
                         
 class DeleteBook(webapp.RequestHandler):
     def get(self):
-        profile = helper.profile_by_google_user_id(users.get_current_user().user_id())
-        if not helper.check_for_profile(self):
+        loluser = helper.loluser_by_google_user_id(users.get_current_user().user_id())
+        if not helper.check_for_loluser(self):
             return
         book = db.get(db.Key(self.request.get("key")))
-        if (book.userid != profile.id):
+        if (book.userid != loluser.id):
             self.redirect("/accessdenied")
             return
         book.delete()
-        self.redirect("/books/" + str(profile.id))
+        self.redirect("/books/" + str(loluser.id))
 
 def main():
     pass

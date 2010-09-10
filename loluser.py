@@ -6,39 +6,39 @@ import os
 import blog
 import helper
 
-class Profile(db.Model):
+class Loluser(db.Model):
     id = db.IntegerProperty()
     user = db.UserProperty()
     userid = db.StringProperty()
 
-class ViewProfile(webapp.RequestHandler):
+class ViewLoluser(webapp.RequestHandler):
     def get(self, userid):
-        profile = helper.profile(userid)
-        if not profile:
+        loluser = helper.loluser(userid)
+        if not loluser:
             self.redirect('/notfound')
         else:
-            values = { 'owner' : profile }
+            values = { 'owner' : loluser }
             values.update(helper.values(self.request.uri))
-            path = os.path.join(os.path.dirname(__file__), 'profile.html')
+            path = os.path.join(os.path.dirname(__file__), 'loluser.html')
             self.response.out.write(template.render(path, values))
 
-class SaveProfile(webapp.RequestHandler):
+class SaveLoluser(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if (not user):
             self.redirect(users.create_login_url(self.request.uri))
         else:
-            profile = helper.profile_by_google_user_id(user.user_id())
-            if (not profile):
-                profile = Profile()
-                profile.userid = user.user_id()
-                profile.user = user
-                maxProfile = Profile.all().order("-id").get()
-                if not maxProfile or not maxProfile.id:
-                    profile.id = 1
+            loluser = helper.loluser_by_google_user_id(user.user_id())
+            if (not loluser):
+                loluser = Loluser()
+                loluser.userid = user.user_id()
+                loluser.user = user
+                maxLoluser = Loluser.all().order("-id").get()
+                if not maxLoluser or not maxLoluser.id:
+                    loluser.id = 1
                 else:
-                    profile.id = maxProfile.id + 1
-                profile.put()
+                    loluser.id = maxLoluser.id + 1
+                loluser.put()
             self.redirect('/')
 
 def main():

@@ -4,10 +4,10 @@ from google.appengine.ext.webapp.util import run_wsgi_app
 from google.appengine.api import users
 import os
 
+import loluser
 import books
-import profile
-import helper
 import blog
+import helper
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -24,9 +24,9 @@ class NotFound(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'notfound.html')
         self.response.out.write(template.render(path, helper.values(self.request.uri)))
 
-class SaveYourProfile(webapp.RequestHandler):
+class SaveYourLoluser(webapp.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'saveyourprofile.html')
+        path = os.path.join(os.path.dirname(__file__), 'saveyourloluser.html')
         self.response.out.write(template.render(path, helper.values(self.request.uri)))
 
 application = webapp.WSGIApplication([
@@ -37,8 +37,8 @@ application = webapp.WSGIApplication([
         ('/deletebook', books.DeleteBook),
         ('/savebook', books.SaveBook),
 
-        (r'/profile/([\d\w_]+)', profile.ViewProfile),
-        ('/saveprofile', profile.SaveProfile),
+        (r'/loluser/([\d\w_]+)', loluser.ViewLoluser),
+        ('/saveloluser', loluser.SaveLoluser),
 
         (r'/blog/([\d\w_]+)', blog.ViewBlog),
         ('/editpost', blog.EditPost),
@@ -48,7 +48,7 @@ application = webapp.WSGIApplication([
 
         ('/notfound', NotFound),
         ('/accessdenied', AccessDenied),
-        ('/saveyourprofile', SaveYourProfile),
+        ('/saveyourloluser', SaveYourLoluser),
         (r'/.*', NotFound),
         ], debug = True)
 

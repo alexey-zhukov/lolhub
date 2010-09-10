@@ -6,7 +6,7 @@
     {% ifequal owner.id user.id %}
 	<div>List of your books:</div><hr/>
     {% else %}
-	<div>List of books of {{ owner.user.nickname }}:</div><hr/>
+	<div>List of books of <a href="/loluser/{{ owner.id }}">{{ owner.user.nickname }}</a>:</div><hr/>
     {% endifequal %}
 
 	{% for book in books %}
