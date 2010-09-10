@@ -1,6 +1,16 @@
 <html>
   <head><title>lolhub: books</title></head>
-  <body>
+  <script type="text/javascript" src="/js/books.js"></script>
+  <script type="text/javascript">
+    function drawbooks() {
+	{% for book in books %}
+    draw('book{{ book.key }}', {{ book.total_pages }}, {{ book.current_page }})
+	{% endfor %}
+    }
+  </script>
+  <link href="/css/books.css" rel="stylesheet" type="text/css"/>
+
+  <body onload="drawbooks()">
     {% include toolbar %}
 
     {% ifequal owner.id user.id %}
@@ -18,8 +28,13 @@
     [<a href="/editbook?key={{ book.key }}">edit</a>]
     [<a href="/deletebook?key={{ book.key }}">delete</a>]
     {% endifequal %}
-	<br/><hr/>
+
+    <br/>
+    <canvas id="book{{ book.key }}" class="canvas" width="400" height="17">Fallback</canvas>
+    <br/>
+
 	{% endfor %}
+
 
     {% ifequal owner.id user.id %}
     <a href="/editbook">add new book</a>
