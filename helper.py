@@ -43,3 +43,9 @@ def check_for_existence_and_ownership(entity, handler):
         handler.redirect("/accessdenied")
         return False
     return True
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()

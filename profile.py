@@ -40,3 +40,9 @@ class SaveProfile(webapp.RequestHandler):
                     profile.id = maxProfile.id + 1
                 profile.put()
             self.redirect('/')
+
+def main():
+    pass
+
+if __name__ == "__main__":
+    main()
