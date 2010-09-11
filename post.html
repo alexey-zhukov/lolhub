@@ -1,20 +1,32 @@
 <html>
   <head><title>lolhub: blog</title></head>
+  <link href="/css/main.css" rel="stylesheet" type="text/css"/>
+  <link href="/css/blog.css" rel="stylesheet" type="text/css"/>
   <body>
     {% include toolbar %}
 
+    <p class="post-title">
+      <a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.title|escape }}</a>
+      <span class="post-date">
+        (<a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.date_posted_formatted }}</a>)
+      </span>
+    </p>
+    <p class="post-content">
+      {{ post.content|escape|linebreaksbr }}
+    </p>
+
     {% ifequal owner.id user.id %}
-    <a href="/blog/{{ owner.id }}">Back to your blog</a>
-    {% else %}
-    <a href="/blog/{{ owner.id }}">View all posts by {{ owner.user.nickname }}</a>
+    <p class="edit-post">[<a href="/editpost?key={{ post.key }}">edit</a>]
+      [<a href="/deletepost?key={{ post.key }}">delete</a>]</p>
     {% endifequal %}
 
-	<p><b><a href="/blog/{{ owner.id }}/{{ post.id }}"><span style="font-size:20px">{{ post.title|escape }}</span></a> <span style="font-size:14px">(<a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.date_posted_formatted }}</a>)</span></a></b></p>
-    <p style="border-width: 1px; border-style: solid; border-color: gray;">{{ post.content|escape|linebreaksbr }}</p>
-
+    <p class="back-to-blog">
     {% ifequal owner.id user.id %}
-    [<a href="/editpost?key={{ post.key }}">edit</a>]
-    [<a href="/deletepost?key={{ post.key }}">delete</a>]
+      <a href="/blog/{{ owner.id }}">Back to your blog</a>
+      {% else %}
+      <a href="/blog/{{ owner.id }}">View all posts by {{ owner.user.nickname }}</a>
     {% endifequal %}
+    </p>
+
   </body>
 </html>

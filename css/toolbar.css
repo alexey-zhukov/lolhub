@@ -1,0 +1,17 @@
+.toolbar {
+    font-family: sans-serif;
+    font-style: normal;
+    font-size: 100%;
+    padding: 4px;
+    background-color: #dcf5ed;
+}
+
+.lolhub {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.login-tools {
+    text-align: right;
+    font-size: 0.75em;
+}

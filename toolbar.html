@@ -1,13 +1,26 @@
-<div style="background:#eeeeaa">
-{% if google_user %}
-<p><b><a href="/">lolhub</a></b> :
-  hello&nbsp;{% if user %}<a href="/loluser/{{ user.id }}">{% endif %}<b>{{ google_user.nickname }}</b>{% if user %}</a>{% endif %},
-  you can <a href="{{ logout_url }}">logout</a>
-  {% if not user %}
-  <a href="/saveloluser"><b>(save your profile to use services)</b></a>
-  {% endif %}
-</p>
-{% else %}
-<p><b><a href="/">lolhub</a></b> : welcome, you can <a href="{{ login_url }}">login</a></p>
-{% endif %}
+<link href="/css/toolbar.css" rel="stylesheet" type="text/css"/>
+<div class="toolbar">
+  <table style="width:100%">
+    <tr>
+      <td><span class="lolhub"><a href="/">lolhub</a></span></td>
+      
+      {% if google_user %}
+      
+      <td><p class="login-tools">hello
+          {% if user %}<a href="/loluser/{{ user.id }}">{% endif %}
+            <b>{{ google_user.nickname }}</b>{% if user %}</a>{% endif %},
+          you can <a href="{{ logout_url }}">logout</a>
+          {% if not user %}
+          <a href="/saveloluser"><b>(save your profile to use services)</b></a>
+          {% endif %}
+      </p></td>
+      
+      {% else %}
+      
+      <td><p class="login-tools">welcome, you can <a href="{{ login_url }}">login</a></p></td>
+      
+      {% endif %}
+      
+    </tr>
+  </table>
 </div>
