@@ -44,6 +44,18 @@ def check_for_existence_and_ownership(entity, handler):
         return False
     return True
 
+def check_for_existence_and_ownership2(entity, handler):
+    user = users.get_current_user()
+    lol = loluser_by_google_user_id(user.user_id())
+    if not entity:
+        handler.redirect("/notfound")
+        return False
+    if (entity.author != lol):
+        handler.redirect("/accessdenied")
+        return False
+    return True
+
+
 def main():
     pass
 

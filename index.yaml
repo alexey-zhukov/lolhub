@@ -16,6 +16,11 @@ indexes:
   - name: date_edited
     direction: desc
 
+- kind: Comment
+  properties:
+  - name: post
+  - name: date_posted
+
 - kind: Post
   properties:
   - name: userid

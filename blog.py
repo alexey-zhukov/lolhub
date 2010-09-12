@@ -3,6 +3,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import users
 from google.appengine.ext.db import BadKeyError
 import os
+import re
 
 import helper
 
@@ -17,8 +18,8 @@ class Post(db.Model):
         return len(self.content) <= 500
     def content_preview(self):
         return  self.content[:500]
-    def date_posted_formatted(self):
-        return self.date_posted.strftime("%d.%m.%Y %H:%M")
+    def comment_count(self):
+        return db.GqlQuery('select * from Comment where post = :1', self).count()
 
 class ViewBlog(webapp.RequestHandler):
     def get(self, userid):
@@ -52,7 +53,16 @@ class ViewBlog(webapp.RequestHandler):
         path = os.path.join(os.path.dirname(__file__), 'blog.html')
         self.response.out.write(template.render(path, values))
 
+class TempComment:
+    me = None
+    children = []
+
 class ViewPost(webapp.RequestHandler):
+    def append_all(self, tmp, list):
+        list.append(tmp.me)
+        for child in tmp.children:
+            self.append_all(child, list)
+
     def get(self, userid, postid):
         loluser = helper.loluser(userid)
         if not loluser:
@@ -62,7 +72,30 @@ class ViewPost(webapp.RequestHandler):
         if not post or post.userid != loluser.id:
             self.redirect('/notfound')
             return
-        values = { 'post' : post, 'owner' : loluser }
+
+        comments = db.GqlQuery('select * from Comment where post = :1 order by' +
+                               ' date_posted asc',
+                               post)
+        root = TempComment()
+        root.children = []
+        hm = {}
+        for comment in comments:
+            tmp = TempComment()
+            tmp.me = comment
+            tmp.children = []
+            if comment.parent_comment:
+                par = hm[comment.parent_comment.id]
+            else:
+                par = root
+            hm[comment.id] = tmp
+            par.children.append(tmp)
+        #for child in root.children:
+        #    print child.children
+
+        comments = []
+        for child in root.children:
+            self.append_all(child, comments)
+        values = { 'post' : post, 'owner' : loluser, 'comments' : comments }
         values.update(helper.values(self.request.uri))
         path = os.path.join(os.path.dirname(__file__), 'post.html')
         self.response.out.write(template.render(path, values))
@@ -87,6 +120,9 @@ class EditPost(webapp.RequestHandler):
         self.response.out.write(template.render(path, values))
 
 class SavePost(webapp.RequestHandler):
+    def get(self):
+        self.redirect('/notfound')
+
     def post(self):
         loluser = helper.loluser_by_google_user_id(users.get_current_user().user_id())
         if not helper.check_for_loluser(self): return

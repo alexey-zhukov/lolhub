@@ -5,27 +5,22 @@
     margin-right: 10%;
     padding: 8px;
     font-size: 0.75em;
+    word-wrap: break-word;
 }
 
-.post-title {
-    margin-left: 10%;
-    font-weight: bold;
-    font-size: 0.875em;
-}
-
-.edit-post {
+.edit-post, .reply-to-comment {
     text-align: right;
     margin-right: 10%;
     font-size: 0.75em;
 }
 
-.back-to-blog {
-    margin-left: 10%;
-    font-size: 0.75em;
-}
-
 .post-date {
     font-size: 0.75em;
+    font-weight: normal;
+}
+
+.comment-date {
+    font-size: 0.875em;
     font-weight: normal;
 }
 
@@ -44,12 +39,46 @@
     border: 2px solid #6dc2a5;
 }
 
-.blog-title {
-    border: 2px solid #6dc2a5;
-    background-color: #dcf5ed;
-    margin-left: 25%;
-    margin-right: 25%;
-    font-size: 1em;
+.comment-content {
+    border: 1px solid #6dc2a5;
+    background-color: #e9ed98;
+    margin-left: 10%;
+    margin-right: 10%;
+    padding: 8px;
+    font-size: 0.75em;
+    word-wrap: break-word;
+}
+
+.comment-author {
+    margin-left: 10%;
+    font-weight: normal;
+    font-size: 0.75em;
+}
+
+.comment-area {
+    width: 100%;
+}
+
+.comment-area-wrapper {
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.save-button {
+    align: right;
+    background-color: #e9ed98;
+    font-size: 0.75em;
+    padding: 5px;
     font-weight: bold;
-    text-align: center;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border: 1px solid black;
+    margin-right: 10%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.button-wrapper {
+    text-align: right;
+    margin-right: 10%;
 }

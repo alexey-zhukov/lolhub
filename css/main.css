@@ -15,11 +15,39 @@ a:visited {
 }
 
 a:hover {
-    color: #73470f;
+    color: #25785c;
     text-decoration:underline;
 }
 
 a:active {
-    color: #73470f;
+    color: #25785c;
     text-decoration:underline;
+}
+
+.information {
+    margin-left: 10%;
+    font-size: 0.75em;
+}
+
+.blog-level-title {
+    border: 2px solid #6dc2a5;
+    background-color: #dcf5ed;
+    margin-left: 25%;
+    margin-right: 25%;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+}
+
+.post-level-title {
+    margin-left: 10%;
+    margin-right: 10%;
+    font-weight: bold;
+    font-size: 0.875em;
+}
+
+.footer {
+    font-size: 0.6em;
+    margin-left: 10%;
+    margin-right: 10%;
 }

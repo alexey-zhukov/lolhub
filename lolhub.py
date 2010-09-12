@@ -8,6 +8,7 @@ import loluser
 import books
 import blog
 import helper
+import comments
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -45,6 +46,9 @@ application = webapp.WSGIApplication([
         ('/deletepost', blog.DeletePost),
         ('/savepost', blog.SavePost),
         (r'/blog/([\d\w_]+)/([\d\w_]+)', blog.ViewPost),
+
+        ('/savecomment', comments.SaveComment),
+        ('/replytocomment', comments.ReplyToComment),
 
         ('/notfound', NotFound),
         ('/accessdenied', AccessDenied),

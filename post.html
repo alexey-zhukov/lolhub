@@ -5,28 +5,59 @@
   <body>
     {% include toolbar %}
 
-    <p class="post-title">
-      <a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.title|escape }}</a>
-      <span class="post-date">
-        (<a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.date_posted_formatted }}</a>)
-      </span>
-    </p>
-    <p class="post-content">
-      {{ post.content|escape|linebreaksbr }}
-    </p>
-
-    {% ifequal owner.id user.id %}
-    <p class="edit-post">[<a href="/editpost?key={{ post.key }}">edit</a>]
-      [<a href="/deletepost?key={{ post.key }}">delete</a>]</p>
-    {% endifequal %}
-
-    <p class="back-to-blog">
+    <p class="information">
     {% ifequal owner.id user.id %}
       <a href="/blog/{{ owner.id }}">Back to your blog</a>
       {% else %}
       <a href="/blog/{{ owner.id }}">View all posts by {{ owner.user.nickname }}</a>
     {% endifequal %}
     </p>
+
+    <p class="post-level-title">
+      <a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.title|escape }}</a>
+      <span class="post-date">
+        (<a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.date_posted|date:"d.m.Y H:i" }}</a>)
+      </span>
+    </p>
+    <p class="post-content">{{ post.content|escape|linebreaksbr }}</p>
+
+    {% ifequal owner.id user.id %}
+    <p class="edit-post">[<a href="/editpost?key={{ post.key }}">edit</a>]
+      [<a href="/deletepost?key={{ post.key }}">delete</a>]</p>
+    {% endifequal %}
+
+	{% for comment in comments %}
+    <p class="comment-author" style="margin-left:{{ comment.depth_margin }}%">
+      {% if comment.author %}
+      <a href="/loluser/{{ comment.author.id }}">{{ comment.author.user.nickname|escape }}</a> commented:
+      {% else %}
+      Anonymous commented:
+      {% endif %}
+      <span class="comment-date">
+        ({{ comment.date_posted|date:"d.m.Y H:i" }})
+      </span>
+    </p>
+
+    <p class="comment-content" style="margin-left:{{ comment.depth_margin }}%">{{ comment.content|escape|linebreaksbr }}</p>
+    {% if comment.parent_comment %}
+    {{ parent_comment.content }}
+    {% endif %}
+
+    <p class="reply-to-comment">[<a href="/replytocomment?comment={{ comment.key }}">reply</a>]</p>
+    {% endfor %}
+
+    <form action="/savecomment" method="post">
+	  <p class="information">Post new comment:</p>
+      <div class="comment-area-wrapper"><textarea class="comment-area" name="content" rows="6" cols="80"></textarea></div>
+      <input type="hidden" name="post" value="{{ post.key }}"/>
+      <table style="width:100%; text-align:right">
+        <tr>
+          <td>
+	        <input class="save-button" type="submit" value="save"/>
+          </td>
+        </tr>
+      </table>
+	</form>
 
   </body>
 </html>
