@@ -12,7 +12,7 @@ def values(uri):
         'login_url' : users.create_login_url(uri),
         'logout_url' : users.create_logout_url(uri),
         'google_user' : user,
-        'user' : lol,
+        'loluser' : lol,
         }
     return values
 

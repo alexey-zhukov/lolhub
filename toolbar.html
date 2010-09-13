@@ -7,12 +7,17 @@
       {% if google_user %}
       
       <td><p class="login-tools">hello
-          {% if user %}<a href="/loluser/{{ user.id }}">{% endif %}
-            <b>{{ google_user.nickname }}</b>{% if user %}</a>{% endif %},
+          {% if loluser %}<a href="/loluser/{{ loluser.id }}">{% endif %}
+            <b>{% if loluser.nickname %}{{ loluser.nickname }}{% else %}{{ google_user.nickname }}{% endif %}</b>{% if loluser %}</a>{% endif %},
           you can <a href="{{ logout_url }}">logout</a>
-          {% if not user %}
-          <a href="/saveloluser"><b>(save your profile to use services)</b></a>
+          {% if not loluser %}
+          <a class="urgent_message" href="/saveloluser">(save your profile to use services)</a>
+          {% else %}
+          {% if not loluser.nickname %}
+          <a class="urgent_message" href="/saveloluser">(hey, now you can choose a different nickname)</a>
           {% endif %}
+          {% endif %}
+
       </p></td>
       
       {% else %}

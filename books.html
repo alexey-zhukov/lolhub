@@ -13,10 +13,10 @@
   <body onload="drawbooks()">
     {% include toolbar %}
 
-    {% ifequal owner.id user.id %}
+    {% ifequal owner.id loluser.id %}
 	<p class="blog-level-title">List of your books:</p>
     {% else %}
-	<p class="blog-level-title">List of books of <a href="/loluser/{{ owner.id }}">{{ owner.user.nickname }}</a>:</p>
+	<p class="blog-level-title">List of books of <a href="/loluser/{{ owner.id }}">{{ owner.nickname_wrap }}</a>:</p>
     {% endifequal %}
     <br/>
 
@@ -25,7 +25,7 @@
     <span style="font-weight:normal">by {{ book.author|escape }}, {{ book.year }}
     ({{ book.current_page}} / {{ book.total_pages }})
 
-    {% ifequal owner.id user.id %}
+    {% ifequal owner.id loluser.id %}
 &nbsp;&nbsp;
     [<a href="/editbook?key={{ book.key }}">edit</a>]
     [<a href="/deletebook?key={{ book.key }}">delete</a>]
@@ -43,7 +43,7 @@
 	{% endfor %}
 
 
-    {% ifequal owner.id user.id %}
+    {% ifequal owner.id loluser.id %}
     <a class="information" href="/editbook">add new book</a>
     {% endifequal %}
   </body>

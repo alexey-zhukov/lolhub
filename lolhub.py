@@ -40,6 +40,7 @@ application = webapp.WSGIApplication([
 
         (r'/loluser/([\d\w_]+)', loluser.ViewLoluser),
         ('/saveloluser', loluser.SaveLoluser),
+        ('/savenickname', loluser.SaveNickname),
 
         (r'/blog/([\d\w_]+)', blog.ViewBlog),
         ('/editpost', blog.EditPost),

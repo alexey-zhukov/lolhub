@@ -51,3 +51,42 @@ a:active {
     margin-left: 10%;
     margin-right: 10%;
 }
+
+.error {
+    color: red;
+    font-size: 0.875em;
+    margin-left: 10%;
+    margin-right: 10%;
+    font-weight: bold;
+}
+
+a.urgent_message:link {
+    color: red;
+    text-decoration:none;
+    font-weight: bold;
+}
+
+a.urgent_message:visited {
+    color: red;
+    text-decoration:none;
+    font-weight: bold;
+}
+
+a.urgent_message:hover {
+    color: red;
+    text-decoration:underline;
+    font-weight: bold;
+}
+
+a.urgent_message:active {
+    color: red;
+    text-decoration:underline;
+    font-weight: bold;
+}
+
+.input_wrapper {
+    margin-left: 10%;
+    margin-right: 10%;
+    font-size: 0.875em;
+    width: 80%;
+}

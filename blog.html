@@ -6,13 +6,13 @@
     {% include toolbar %}
 
     <p class="blog-level-title">
-      {% ifequal owner.id user.id %}Your blog{% else %}
-	  This is blog of <a href="/loluser/{{ owner.id }}">{{ owner.user.nickname }}</a>
+      {% ifequal owner.id loluser.id %}Your blog{% else %}
+	  This is blog of <a href="/loluser/{{ owner.id }}">{{ owner.nickname_wrap }}</a>
       {% endifequal %}
     </p>
 
 
-    {% ifequal owner.id user.id %}
+    {% ifequal owner.id loluser.id %}
     <span class="add-new-post">
       <a href="/editpost">add new post</a>
     </span>
@@ -43,7 +43,7 @@
     
     <p class="information">[<a href="/blog/{{ owner.id }}/{{ post.id }}#comments">{% if post.comment_count %}comments: {{ post.comment_count }}{% else %}no comments{% endif %}</a>]</p>
 
-    {% ifequal owner.id user.id %}
+    {% ifequal owner.id loluser.id %}
     <p class="edit-post">[<a href="/editpost?key={{ post.key }}">edit</a>]
       [<a href="/deletepost?key={{ post.key }}">delete</a>]</p>
     {% endifequal %}

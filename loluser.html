@@ -1,17 +1,17 @@
 <html>
-  <head><title>lolhub: {{ owner.user.nickname }}</title></head>
+  <head><title>lolhub: {{ owner.nickname_wrap }}</title></head>
   <link href="/css/main.css" rel="stylesheet" type="text/css"/>
   <body>
     {% include toolbar %}
 
-    {% ifequal owner.id user.id %}
-	<div>This is your profile page</div>
-    <div><a href="/books/{{ owner.id }}">Your books</a></div>
-    <div><a href="/blog/{{ owner.id }}">Your blog</a></div>
+    {% ifequal owner.id loluser.id %}
+	<p class="post-level-title">This is your profile page</p>
+    <p class="post-level-title"><a href="/books/{{ owner.id }}">Your books</a></p>
+    <p class="post-level-title"><a href="/blog/{{ owner.id }}">Your blog</a></p>
     {% else %}
-    <div>This is profile page of {{ owner.user.nickname }}</div>
-    <div><a href="/books/{{ owner.id }}">View {{ owner.user.nickname }}'s books</a></div>
-    <div><a href="/blog/{{ owner.id }}">View {{ owner.user.nickname }}'s blog</a></div>
+    <p class="post-level-title">This is profile page of {{ owner.nickname_wrap }}</p>
+    <p class="post-level-title"><a href="/books/{{ owner.id }}">View {{ owner.nickname_wrap }}'s books</a></p>
+    <p class="post-level-title"><a href="/blog/{{ owner.id }}">View {{ owner.nickname_wrap }}'s blog</a></p>
     {% endifequal %}
 
   </body>
