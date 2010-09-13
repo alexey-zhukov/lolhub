@@ -9,7 +9,7 @@
     {% ifequal owner.id loluser.id %}
       <a href="/blog/{{ owner.id }}">Back to your blog</a>
       {% else %}
-      <a href="/blog/{{ owner.id }}">View all posts by {{ owner.nickname_wrap }}</a>
+      <a href="/blog/{{ owner.id }}">View all posts by {{ owner.nickname_wrap|escape }}</a>
     {% endifequal %}
     </p>
 

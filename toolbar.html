@@ -8,7 +8,7 @@
       
       <td><p class="login-tools">hello
           {% if loluser %}<a href="/loluser/{{ loluser.id }}">{% endif %}
-            <b>{% if loluser.nickname %}{{ loluser.nickname }}{% else %}{{ google_user.nickname }}{% endif %}</b>{% if loluser %}</a>{% endif %},
+            <b>{% if loluser.nickname %}{{ loluser.nickname|escape }}{% else %}{{ google_user.nickname|escape }}{% endif %}</b>{% if loluser %}</a>{% endif %},
           you can <a href="{{ logout_url }}">logout</a>
           {% if not loluser %}
           <a class="urgent_message" href="/saveloluser">(save your profile to use services)</a>

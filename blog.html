@@ -7,7 +7,7 @@
 
     <p class="blog-level-title">
       {% ifequal owner.id loluser.id %}Your blog{% else %}
-	  This is blog of <a href="/loluser/{{ owner.id }}">{{ owner.nickname_wrap }}</a>
+	  This is blog of <a href="/loluser/{{ owner.id }}">{{ owner.nickname_wrap|escape }}</a>
       {% endifequal %}
     </p>
 

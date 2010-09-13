@@ -29,7 +29,8 @@ class ViewLoluser(webapp.RequestHandler):
 
 class SaveNickname(webapp.RequestHandler):
     def valid(self, nickname):
-        nickname = nickname.replace(' ', '')
+        if ' ' in nickname:
+            return 'no spaces'
         if len(nickname) < 2:
             return 'minimum length = 2'
         if len(nickname) > 42:

@@ -16,7 +16,7 @@
     {% ifequal owner.id loluser.id %}
 	<p class="blog-level-title">List of your books:</p>
     {% else %}
-	<p class="blog-level-title">List of books of <a href="/loluser/{{ owner.id }}">{{ owner.nickname_wrap }}</a>:</p>
+	<p class="blog-level-title">List of books of <a href="/loluser/{{ owner.id }}">{{ owner.nickname_wrap|escape }}</a>:</p>
     {% endifequal %}
     <br/>
 
