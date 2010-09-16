@@ -1,6 +1,6 @@
 body {
     font-size: 100%;
-    font-family: sans-serif;
+    font-family: Georgia, Times, 'Times New Roman', serif;
     font-style: normal;
 }
 
@@ -42,8 +42,9 @@ a:active {
 .post-level-title {
     margin-left: 10%;
     margin-right: 10%;
+    font-size: 1.25em;
+    font-style: normal;
     font-weight: bold;
-    font-size: 0.875em;
 }
 
 .footer {
@@ -84,7 +85,7 @@ a.urgent_message:active {
     font-weight: bold;
 }
 
-.input_wrapper {
+.input-wrapper {
     margin-left: 10%;
     margin-right: 10%;
     font-size: 0.875em;

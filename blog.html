@@ -41,7 +41,7 @@
     </p>
     <p class="post-content">{{ post.content_preview|escape|linebreaksbr }}{% if not post.preview_full %}... <a href="/blog/{{ owner.id }}/{{ post.id }}">view full post</a>{% endif %}</p>
     
-    <p class="information">[<a href="/blog/{{ owner.id }}/{{ post.id }}#comments">{% if post.comment_count %}comments: {{ post.comment_count }}{% else %}no comments{% endif %}</a>]</p>
+    <span class="comment-count"><a href="/blog/{{ owner.id }}/{{ post.id }}">{% if post.comment_count %}comments: {{ post.comment_count }}{% else %}no comments{% endif %}</a></span>
 
     {% ifequal owner.id loluser.id %}
     <p class="edit-post">[<a href="/editpost?key={{ post.key }}">edit</a>]

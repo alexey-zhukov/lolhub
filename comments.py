@@ -23,6 +23,8 @@ class Comment(db.Model):
             return 0
     def depth_margin(self):
         return min(12 + 2*self.depth(), 70)
+    def width(self):
+        return 90-self.depth_margin()
 
 class SaveComment(webapp.RequestHandler):
     def post(self):

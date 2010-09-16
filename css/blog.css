@@ -4,8 +4,13 @@
     margin-left: 10%;
     margin-right: 10%;
     padding: 8px;
-    font-size: 0.75em;
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    font-size: 1em;
+    font-style: normal;
     word-wrap: break-word;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 
 .edit-post, .reply-to-comment {
@@ -45,8 +50,11 @@
     margin-left: 10%;
     margin-right: 10%;
     padding: 8px;
-    font-size: 0.75em;
+    font-size: 0.875em;
     word-wrap: break-word;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 
 .comment-author {
@@ -57,6 +65,9 @@
 
 .comment-area {
     width: 100%;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 
 .comment-area-wrapper {
@@ -69,9 +80,11 @@
     background-color: #e9ed98;
     font-size: 0.75em;
     padding: 5px;
+    font-family: Georgia, Times, 'Times New Roman', serif;
     font-weight: bold;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
     border: 1px solid black;
     margin-right: 10%;
     padding-left: 15px;
@@ -81,4 +94,15 @@
 .button-wrapper {
     text-align: right;
     margin-right: 10%;
+}
+
+.comment-count {
+    margin-left: 10%;
+    font-size: 0.875em;
+    border: 1px solid #6dc2a5;
+    background-color: #e9ed98;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    padding: 4px;
 }

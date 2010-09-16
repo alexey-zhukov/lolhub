@@ -12,7 +12,7 @@
 
     <p class="post-level-title">You can choose a nickname for your profile. You may want to choose a nickname different from your google profile nickname. It is OK if they will be the same. NOTE: you can choose a nickname only once.</p>
 	<form action="/savenickname" method="post">
-      <div class="input_wrapper">
+      <div class="input-wrapper">
         Your nickname (no spaces, min 2, max 42 chars): <input style="width:100%" type="text" name="nickname" value="{% if not nickname %}{{ google_user.nickname|escape }}{% else %}{{ nickname|escape }}{% endif %}"/>
       </div>
       {% if error %}
@@ -33,7 +33,7 @@
 
     <p class="post-level-title">You can choose a nickname for your profile. You may want to choose a nickname different from your google profile nickname. It is OK if they will be the same. NOTE: you can choose a nickname only once.</p>
 	<form action="/savenickname" method="post">
-      <div class="input_wrapper">
+      <div class="input-wrapper">
         Your nickname (no spaces, min 2, max 42 chars): <input style="width:100%" type="text" name="nickname" value="{% if not nickname %}{{ google_user.nickname|escape }}{% else %}{{ nickname|escape }}{% endif %}"/>
       </div>
       {% if error %}

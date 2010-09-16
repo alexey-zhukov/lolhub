@@ -1,9 +1,13 @@
 .toolbar {
-    font-family: sans-serif;
+    font-family: Georgia, Times, 'Times New Roman', serif;
     font-style: normal;
     font-size: 100%;
     padding: 4px;
+    border: 1px solid #6dc2a5;
     background-color: #dcf5ed;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 
 .lolhub {
@@ -13,5 +17,5 @@
 
 .login-tools {
     text-align: right;
-    font-size: 0.75em;
+    font-size: 0.875em;
 }
