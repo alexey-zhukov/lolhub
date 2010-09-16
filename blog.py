@@ -15,9 +15,9 @@ class Post(db.Model):
     date_posted = db.DateTimeProperty(auto_now_add = True)
     date_edited = db.DateTimeProperty(auto_now = True)
     def preview_full(self):
-        return len(self.content) <= 500
+        return len(self.content) <= 1500
     def content_preview(self):
-        return  self.content[:500]
+        return  self.content[:1500]
     def comment_count(self):
         return db.GqlQuery('select * from Comment where post = :1', self).count()
 

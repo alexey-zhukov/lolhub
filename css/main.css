@@ -37,6 +37,9 @@ a:active {
     font-size: 1em;
     font-weight: bold;
     text-align: center;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 
 .post-level-title {
