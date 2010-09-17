@@ -21,20 +21,19 @@
     <br/>
 
 	{% for book in books %}
-	<p class="post-level-title">{{ book.title|escape }}
-    <span style="font-weight:normal">by {{ book.author|escape }}, {{ book.year }}
-    ({{ book.current_page}} / {{ book.total_pages }})
+    <span class="book-description">{{ book.title|escape }}<span class="book-details">
+        by {{ book.author|escape }}, {{ book.year }} ({{ book.current_page}} / {{ book.total_pages }})
 
     {% ifequal owner.id loluser.id %}
 &nbsp;&nbsp;
     [<a href="/editbook?key={{ book.key }}">edit</a>]
     [<a href="/deletebook?key={{ book.key }}">delete</a>]
-    {% endifequal %}</span></p>
+    {% endifequal %}</span></span>
 
     <table style="width:80%;margin-left:10%;margin-right:10%">
       <tr>
         <td>
-          <canvas id="book{{ book.key }}" class="canvas" height="17">Fallback</canvas>
+          <canvas id="book{{ book.key }}" class="canvas" height="12">Fallback</canvas>
         </td>
       </tr>
     </table>

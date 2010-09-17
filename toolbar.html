@@ -3,7 +3,7 @@
   <table style="width:100%">
     <tr>
       <td><span class="lolhub"><a href="/">lolhub</a></span></td>
-      
+
       {% if google_user %}
       
       <td><p class="login-tools">hello
@@ -29,3 +29,11 @@
     </tr>
   </table>
 </div>
+{% if google_user %}
+{% if loluser %}
+<div class="menu">
+  <span class="menu-item"><a href="/books/{{ loluser.id }}">books</a></span>
+  <span class="menu-item"><a href="/blog/{{ loluser.id }}">blog</a></span>
+</div>
+{% endif %}
+{% endif %}

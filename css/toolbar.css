@@ -19,3 +19,30 @@
     text-align: right;
     font-size: 0.875em;
 }
+
+.short-links {
+    border: 1px solid black;
+    text-align: left;
+    font-size: 0.5em;
+}
+
+.menu {
+    font-family: Georgia, Times, 'Times New Roman', serif;
+    font-style: normal;
+    font-size: 0.6em;
+    padding-left: 12px;
+}
+
+.menu-item {
+    background-color: #dcf5ed;
+    border: 1px solid #6dc2a5;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomright: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    -webkit-border-bottom-right-radius: 10px;
+    -webkit-border-bottom-left-radius: 10px;
+    font-size: 1em;
+    padding-left: 20px;
+    padding-right: 20px;
+}

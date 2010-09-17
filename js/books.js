@@ -7,9 +7,9 @@ function draw(id, total, done) {
         var p_rest = canvas.width - p_done
 
         ctx.fillStyle = "#6dc2a5"
-        ctx.fillRect(0, 0, p_done, 17)
+        ctx.fillRect(0, 0, p_done, 12)
         ctx.fillStyle = "#dcf5ed"
-        ctx.fillRect(p_done, 0, p_rest, 17)
+        ctx.fillRect(p_done, 0, p_rest, 12)
         ctx.fillStyle = "#000000"
     }
 }

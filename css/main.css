@@ -30,7 +30,7 @@ a:active {
 }
 
 .blog-level-title {
-    border: 2px solid #6dc2a5;
+    border: 1px solid #6dc2a5;
     background-color: #dcf5ed;
     margin-left: 25%;
     margin-right: 25%;
@@ -40,6 +40,8 @@ a:active {
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
 }
 
 .post-level-title {
