@@ -9,6 +9,7 @@ import books
 import blog
 import helper
 import comments
+import js
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -54,7 +55,9 @@ application = webapp.WSGIApplication([
         ('/notfound', NotFound),
         ('/accessdenied', AccessDenied),
         ('/saveyourloluser', SaveYourLoluser),
+        ('/js1', js.Js1),
         (r'/.*', NotFound),
+
         ], debug = True)
 
 def main():
