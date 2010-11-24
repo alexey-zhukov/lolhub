@@ -10,6 +10,7 @@ import blog
 import helper
 import comments
 import js
+import xpass
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -56,6 +57,7 @@ application = webapp.WSGIApplication([
         ('/accessdenied', AccessDenied),
         ('/saveyourloluser', SaveYourLoluser),
         ('/js1', js.Js1),
+        ('/xpass', xpass.Xpass),
         (r'/.*', NotFound),
 
         ], debug = True)
