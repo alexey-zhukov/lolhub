@@ -34,6 +34,9 @@
 <div class="menu">
   <span class="menu-item"><a href="/books/{{ loluser.id }}">books</a></span>
   <span class="menu-item"><a href="/blog/{{ loluser.id }}">blog</a></span>
+  {% if admin %}
+  <span class="menu-item"><a href="/xpass">xpass</a></span>
+  {% endif %}
 </div>
 {% endif %}
 {% endif %}

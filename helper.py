@@ -13,6 +13,7 @@ def values(uri):
         'logout_url' : users.create_logout_url(uri),
         'google_user' : user,
         'loluser' : lol,
+        'admin' : users.is_current_user_admin(),
         }
     return values
 
