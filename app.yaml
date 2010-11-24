@@ -7,12 +7,16 @@ handlers:
 - url: /favicon.ico
   static_files: favicon/favicon.ico
   upload: favicon/favicon.ico
+  secure: always
 
 - url: /css
   static_dir: css
+  secure: always
 
 - url: /js
   static_dir: js
+  secure: always
 
 - url: /.*
   script: lolhub.py
+  secure: always
