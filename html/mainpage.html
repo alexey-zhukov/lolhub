@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>lolhub: main</title>
+        <link rel="stylesheet" href="/css/main.css" />
+    </head>
+    <body>
+        {% include toolbar %}
+        <p class="blog-level-title">Welcome to lolhub!</p><br/>
+        {% if loluser %}
+        <p class="post-level-title"><a href="/books/{{ loluser.id }}">manage your reading list</a></p>
+        <p class="post-level-title"><a href="/blog/{{ loluser.id }}">manage your blog</a></p>
+        {% else %}
+        {% if google_user %}
+        <p class="post-level-title">To use services you now need to <a class="urgent_message" href="/saveloluser">save your profile</a></p>
+        {% else %}
+        <p class="post-level-title">You can login to lolhub with Google account and use lolhub services (books & blog)</p>
+        {% endif %}
+        {% endif %}
+        <br/>
+        <span class="footer">webmaster: alekseyrybalkin [at gmail] (<a href="http://github.com/alekseyrybalkin/lolhub">github home</a>)</span>
+    </body>
+</html>

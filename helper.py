@@ -8,7 +8,7 @@ def values(uri):
     if user:
         lol = db.GqlQuery('select * from Loluser where userid = :1', user.user_id()).get()
     values = {
-        'toolbar' : os.path.join(os.path.dirname(__file__), 'toolbar.html'),
+        'toolbar' : os.path.join(os.path.dirname(__file__), 'html/toolbar.html'),
         'login_url' : users.create_login_url(uri),
         'logout_url' : users.create_logout_url(uri),
         'google_user' : user,

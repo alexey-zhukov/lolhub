@@ -9,5 +9,5 @@ class Js1(webapp.RequestHandler):
     def get(self):
         values = {}
         values.update(helper.values(self.request.uri))
-        path = os.path.join(os.path.dirname(__file__), 'js1.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/js1.html')
         self.response.out.write(template.render(path, values))

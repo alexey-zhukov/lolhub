@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>lolhub: books</title>
+        <link rel="stylesheet" href="/css/main.css" />
+        <link rel="stylesheet" href="/css/blog.css" />
+    </head>
+    <body>
+        {% include toolbar %}
+
+        {% if book %}
+        <form action="/savebook?key={{ book.key }}" method="post">
+            <p>Edit book:</p>
+            <div class="input-wrapper">Author:<input style="width:100%" type="text" name="author" value="{{ book.author|escape }}"/></div>
+            <div class="input-wrapper">Title:<input style="width:100%" type="text" name="title" value="{{ book.title|escape }}"/></div>
+            <div class="input-wrapper">Year:<input style="width:100%" type="text" name="year" value="{{ book.year }}"/></div>
+            <div class="input-wrapper">Total pages:<input style="width:100%" type="text" name="total_pages" value="{{ book.total_pages }}"/></div>
+            <div class="input-wrapper">Current page:<input style="width:100%" type="text" name="current_page" value="{{ book.current_page }}"/></div>
+            <table style="width:100%; text-align:right">
+                <tr>
+                    <td>
+                        <input class="save-button" type="submit" value="save"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        {% else %}
+        <form action="/savebook" method="post">
+            <p>New book:</p>
+            <div class="input-wrapper">Author:<input style="width:100%" type="text" name="author" value=""/></div>
+            <div class="input-wrapper">Title:<input style="width:100%" type="text" name="title" value=""/></div>
+            <div class="input-wrapper">Year:<input style="width:100%" type="text" name="year" value=""/></div>
+            <div class="input-wrapper">Total pages:<input style="width:100%" type="text" name="total_pages" value=""/></div>
+            <div class="input-wrapper">Current page:<input style="width:100%" type="text" name="current_page" value=""/></div>
+            <table style="width:100%; text-align:right">
+                <tr>
+                    <td>
+                        <input class="save-button" type="submit" value="save"/>
+                    </td>
+                </tr>
+            </table>
+        </form>
+        {% endif %}
+        <br/>
+    </body>
+</html>

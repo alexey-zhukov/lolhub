@@ -12,7 +12,7 @@ class Xpass(webapp.RequestHandler):
             return
         values = {}
         values.update(helper.values(self.request.uri))
-        path = os.path.join(os.path.dirname(__file__), 'xpass.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/xpass.html')
         self.response.out.write(template.render(path, values))
 
 def main():

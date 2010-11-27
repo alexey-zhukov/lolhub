@@ -50,7 +50,7 @@ class ViewBlog(webapp.RequestHandler):
         values = { 'posts' : posts, 'owner' : loluser, 'page' : str(intpage),
                    'nextpage' : str(nextpage), 'prevpage' : str(prevpage) }
         values.update(helper.values(self.request.uri))
-        path = os.path.join(os.path.dirname(__file__), 'blog.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/blog.html')
         self.response.out.write(template.render(path, values))
 
 class TempComment:
@@ -97,7 +97,7 @@ class ViewPost(webapp.RequestHandler):
             self.append_all(child, comments)
         values = { 'post' : post, 'owner' : loluser, 'comments' : comments }
         values.update(helper.values(self.request.uri))
-        path = os.path.join(os.path.dirname(__file__), 'post.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/post.html')
         self.response.out.write(template.render(path, values))
 
 class EditPost(webapp.RequestHandler):
@@ -116,7 +116,7 @@ class EditPost(webapp.RequestHandler):
         else:
             values = {}
         values.update(helper.values(self.request.uri))
-        path = os.path.join(os.path.dirname(__file__), 'editpost.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/editpost.html')
         self.response.out.write(template.render(path, values))
 
 class SavePost(webapp.RequestHandler):

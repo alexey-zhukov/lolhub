@@ -64,5 +64,5 @@ class ReplyToComment(webapp.RequestHandler):
         comment = db.get(db.Key(self.request.get("comment")))
         values = { 'comment' : comment }
         values.update(helper.values(self.request.uri))
-        path = os.path.join(os.path.dirname(__file__), 'replytocomment.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/replytocomment.html')
         self.response.out.write(template.render(path, values))

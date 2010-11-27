@@ -24,7 +24,7 @@ class ViewLoluser(webapp.RequestHandler):
         else:
             values = { 'owner' : loluser }
             values.update(helper.values(self.request.uri))
-            path = os.path.join(os.path.dirname(__file__), 'loluser.html')
+            path = os.path.join(os.path.dirname(__file__), 'html/loluser.html')
             self.response.out.write(template.render(path, values))
 
 class SaveNickname(webapp.RequestHandler):
@@ -49,7 +49,7 @@ class SaveNickname(webapp.RequestHandler):
         if not self.valid(nickname) == 'valid':
             values = { 'error' : self.valid(nickname), 'nickname' : nickname }
             values.update(helper.values(self.request.uri))
-            path = os.path.join(os.path.dirname(__file__), 'saveloluser.html')
+            path = os.path.join(os.path.dirname(__file__), 'html/saveloluser.html')
             self.response.out.write(template.render(path, values))
             return
 
@@ -73,7 +73,7 @@ class SaveLoluser(webapp.RequestHandler):
         if (not user):
             self.redirect(users.create_login_url(self.request.uri))
             return
-        path = os.path.join(os.path.dirname(__file__), 'saveloluser.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/saveloluser.html')
         self.response.out.write(template.render(path, helper.values(self.request.uri)))
 
 def main():

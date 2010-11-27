@@ -26,7 +26,7 @@ class ViewBooks(webapp.RequestHandler):
                             int(userid))
         values = { 'books' : books, 'owner' : loluser }
         values.update(helper.values(self.request.uri))
-        path = os.path.join(os.path.dirname(__file__), 'books.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/books.html')
         self.response.out.write(template.render(path, values))
 
 class EditBook(webapp.RequestHandler):
@@ -46,7 +46,7 @@ class EditBook(webapp.RequestHandler):
         else:
             values = {}
         values.update(helper.values(self.request.uri))
-        path = os.path.join(os.path.dirname(__file__), 'editbook.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/editbook.html')
         self.response.out.write(template.render(path, values))
 
 class SaveBook(webapp.RequestHandler):

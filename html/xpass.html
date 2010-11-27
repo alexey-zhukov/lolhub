@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>lolhub: xpass</title>
+        <script type="text/javascript" src="/js/sha256.js"></script>
+        <script type="text/javascript">
+            function calculate() {
+                var str = document.getElementById("service").value;
+                var shaObj = new jsSHA(str, "ASCII");
+                document.getElementById("result").innerHTML = shaObj.getHash("SHA-224", "HEX");
+            }
+            function catchEnter(e) {
+                if (e.which === 13)
+                    calculate();
+            }
+        </script>
+        <link rel="stylesheet" href="/css/main.css" />
+    </head>
+    <body>
+        {% include toolbar %}
+
+        <br /><br />
+        <div class="input-wrapper">service:<input style="width:100%" type="password" name="service" id="service" value="" onkeydown="catchEnter(event)"/></div>
+        <br />
+        <a class="information" href="#" class="save-button" onclick="calculate()">calculate</a>
+        <p class="information" id="result"></p>
+    </body>
+</html>

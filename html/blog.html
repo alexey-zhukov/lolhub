@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>lolhub: blog</title>
+        <link rel="stylesheet" href="/css/blog.css" />
+        <link rel="stylesheet" href="/css/main.css" />
+    </head>
+    <body>
+        {% include toolbar %}
+
+        <p class="blog-level-title">
+        {% ifequal owner.id loluser.id %}Your blog{% else %}
+        This is blog of <a href="/loluser/{{ owner.id }}">{{ owner.nickname_wrap|escape }}</a>
+        {% endifequal %}
+        </p>
+
+        {% ifequal owner.id loluser.id %}
+        <span class="add-new-post">
+            <a href="/editpost">add new post</a>
+        </span>
+        {% endifequal %}
+
+        <p class="pager">
+        {% ifnotequal prevpage "-1" %}
+        {% ifequal prevpage "0" %}
+        <a href="/blog/{{ owner.id }}">&lt; previous</a>
+        {% else %}
+        <a href="/blog/{{ owner.id }}?page={{ prevpage }}">&lt; previous</a>
+        {% endifequal %}
+        {% endifnotequal %}
+        &nbsp;| page {{ page}} |&nbsp;
+        {% ifnotequal nextpage "-1" %}
+        <a href="/blog/{{ owner.id }}?page={{ nextpage }}">next &gt;</a>
+        {% endifnotequal %}
+        </p>
+
+        {% for post in posts %}
+        <p class="post-level-title">
+        <a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.title|escape }}</a>
+        <span class="post-date">
+            (<a href="/blog/{{ owner.id }}/{{ post.id }}">{{ post.date_posted|date:"d.m.Y H:i" }}</a>)
+        </span>
+        </p>
+        <p class="post-content">{{ post.content_preview|escape|linebreaksbr }}{% if not post.preview_full %}... <a href="/blog/{{ owner.id }}/{{ post.id }}">view full post</a>{% endif %}</p>
+
+        <span class="comment-count"><a href="/blog/{{ owner.id }}/{{ post.id }}">{% if post.comment_count %}comments: {{ post.comment_count }}{% else %}no comments{% endif %}</a></span>
+
+        {% ifequal owner.id loluser.id %}
+        <p class="edit-post">[<a href="/editpost?key={{ post.key }}">edit</a>]
+        [<a href="/deletepost?key={{ post.key }}">delete</a>]</p>
+        {% endifequal %}
+        {% endfor %}
+
+        <p class="pager">
+        {% ifnotequal prevpage "-1" %}
+        {% ifequal prevpage "0" %}
+        <a href="/blog/{{ owner.id }}">&lt; previous</a>
+        {% else %}
+        <a href="/blog/{{ owner.id }}?page={{ prevpage }}">&lt; previous</a>
+        {% endifequal %}
+        {% endifnotequal %}
+        &nbsp;| page {{ page}} |&nbsp;
+        {% ifnotequal nextpage "-1" %}
+        <a href="/blog/{{ owner.id }}?page={{ nextpage }}">next &gt;</a>
+        {% endifnotequal %}
+        </p>
+        <br/>
+    </body>
+</html>

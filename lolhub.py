@@ -14,22 +14,22 @@ import xpass
 
 class MainPage(webapp.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'mainpage.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/mainpage.html')
         self.response.out.write(template.render(path, helper.values(self.request.uri)))
 
 class AccessDenied(webapp.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'accessdenied.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/accessdenied.html')
         self.response.out.write(template.render(path, helper.values(self.request.uri)))
 
 class NotFound(webapp.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'notfound.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/notfound.html')
         self.response.out.write(template.render(path, helper.values(self.request.uri)))
 
 class SaveYourLoluser(webapp.RequestHandler):
     def get(self):
-        path = os.path.join(os.path.dirname(__file__), 'saveyourloluser.html')
+        path = os.path.join(os.path.dirname(__file__), 'html/saveyourloluser.html')
         self.response.out.write(template.render(path, helper.values(self.request.uri)))
 
 application = webapp.WSGIApplication([
