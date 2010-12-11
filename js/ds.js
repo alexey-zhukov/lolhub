@@ -151,7 +151,9 @@ function redraw() {
                 bullets.splice(i, 1);
                 i--;
             }
-            bullets[i].deadtime++;
+            else {
+                bullets[i].deadtime++;
+            }
         }
 
     }
