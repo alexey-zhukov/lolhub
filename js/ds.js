@@ -1,23 +1,24 @@
 var viewport, ctx;
 var xpos, ypos, alpha, xshift, yshift;
 var lkey = false, rkey = false, ukey = false, dkey = false,
-    rleft = false, rright = false;
+    rleft = false, rright = false, fire = false;
 var rects = [];
 var bullets = [];
 var lastmx = -1, lastmy = -1;
+var time = 0;
+var firetime = 0;
 
 var areal = -300;
 var areat = -300;
 var arear = 300;
 var areab = 300;
+var dudev = 2.0;
 
 function hw() {
     viewport = document.getElementById("viewport");
     ctx = viewport.getContext("2d");
     window.addEventListener("keydown", catchKeyDown, false);
     window.addEventListener("keyup", catchKeyUp, false);
-    //window.addEventListener("mousemove", catchMouseMove, false);
-    window.addEventListener("mousedown", catchMouseDown, false);
     xpos = 0;
     ypos = 0;
     alpha = 0;
@@ -29,13 +30,13 @@ function hw() {
                  rt : { x : arear, y : areat },
                  rb : { x : arear, y : areab } }
     
-    for (var i = 0; i < 10; i++) {
+    for (var i = 0; i < 20; i++) {
         var bad = true;
         var pos = rects.length;
         while (bad) {
-            var w = Math.random()*140;
+            var w = Math.max(Math.random()*140, 15);
             var x = Math.random()*((arear - areal) - w);
-            var h = Math.random()*140;
+            var h = Math.max(Math.random()*140, 15);
             var y = Math.random()*((areab - areat) - h);
             rects[pos] =
                    { lt : { x : x+areal, y : y+areat },
@@ -49,57 +50,43 @@ function hw() {
                     break;
                 }
             }
+            if (inside({ x : 0, y : 0 }, rects[pos])) {
+                bad = true;
+            }
         }
     }
-
-    /*rects[1] = { lt : { x : -70, y : -100 },
-                 lb : { x : -70, y : -40 },
-                 rt : { x : -40, y : -100 },
-                 rb : { x : -40, y : -40 } }
-
-    rects[2] = { lt : { x : -10, y : -90 },
-                 lb : { x : -10, y : -40 },
-                 rt : { x : 10, y : -90 },
-                 rb : { x : 10, y : -40 } }
-
-    for (var i = -5; i <= 5; i++) {
-        for (var j = -5; j <= 5; j++) {
-            rects[rects.length] = { lt : {x : i*10, y : j*10},
-                                        lb : {x : i*10, y : j*10+5},
-                                        rt : {x : i*10+5, y : j*10},
-                                        rb : {x : i*10+5, y : j*10+5}}
-        }
-    }*/
 
     setInterval(move, 10);
 }
 
 function intersect(r1, r2) {
+    if (r1.lt.x > r2.lt.x && r1.rt.x < r2.rt.x && r2.lt.y > r1.lt.y && r2.lb.y < r1.lb.y) {
+        return true;
+    }
+    if (r2.lt.x > r1.lt.x && r2.rt.x < r1.rt.x && r1.lt.y > r2.lt.y && r1.lb.y < r2.lb.y) {
+        return true;
+    }
     return inside(r1.lt, r2) || inside(r1.lb, r2) || inside(r1.rt, r2) || inside(r1.rb, r2) ||
            inside(r2.lt, r1) || inside(r2.lb, r1) || inside(r2.rt, r1) || inside(r2.rb, r1);
 }
 
 function redraw() {
     var lt, lb, rt, rb, i;
-    //ctx.clearRect(0, 0, viewport.width, viewport.height);
     viewport.width = viewport.width;
-    //appendText(rects.length);
     
     for (i = 0; i < rects.length; i++) {
-        if (rects[i] !== undefined) {
-            lt = rotatePoint(rects[i].lt);
-            lb = rotatePoint(rects[i].lb);
-            rt = rotatePoint(rects[i].rt);
-            rb = rotatePoint(rects[i].rb);
-            ctx.beginPath();
-            ctx.moveTo(lt.x, lt.y);
-            ctx.lineTo(lb.x, lb.y);
-            ctx.lineTo(rb.x, rb.y);
-            ctx.lineTo(rt.x, rt.y);
-            ctx.lineTo(lt.x, lt.y);
-            ctx.stroke();
-            ctx.closePath();
-        }
+        lt = rotatePoint(rects[i].lt);
+        lb = rotatePoint(rects[i].lb);
+        rt = rotatePoint(rects[i].rt);
+        rb = rotatePoint(rects[i].rb);
+        ctx.beginPath();
+        ctx.moveTo(lt.x, lt.y);
+        ctx.lineTo(lb.x, lb.y);
+        ctx.lineTo(rb.x, rb.y);
+        ctx.lineTo(rt.x, rt.y);
+        ctx.lineTo(lt.x, lt.y);
+        ctx.stroke();
+        ctx.closePath();
     }
     ctx.beginPath();
     ctx.arc(xshift, yshift, 4, 0, Math.PI*2, false);
@@ -107,23 +94,36 @@ function redraw() {
     ctx.closePath();
     
     for (i = 0; i < bullets.length; i++) {
-        ctx.beginPath();
         lt = rotatePoint(bullets[i]);
-        ctx.arc(lt.x, lt.y, 2, 0, Math.PI*2, false);
-        ctx.stroke();
-        ctx.closePath();
+        ctx.save();
+        if (!bullets[i].moving) {
+            ctx.strokeStyle = "#880000";
+        }
+        for (var j = 0; j <= bullets[i].deadtime; j+= 3) {
+            ctx.beginPath();
+            ctx.arc(lt.x, lt.y, 2 + j, 0, Math.PI*2, false);
+            ctx.stroke();
+            ctx.closePath();
+        }
+        ctx.restore();
         if (bullets[i].moving) {
             if (!canmove(bullets[i], { x : bullets[i].x + bullets[i].v * Math.cos(bullets[i].a),
                                        y : bullets[i].y + bullets[i].v * Math.sin(bullets[i].a) })) {
-                bullets[i].canmove = false;
-                bullets.splice(i, 1);
-                i--;
+                bullets[i].moving = false;
             }
             else {
                 bullets[i].x += bullets[i].v * Math.cos(bullets[i].a);
                 bullets[i].y += bullets[i].v * Math.sin(bullets[i].a);
             }
         }
+        else {
+            if (bullets[i].deadtime > 10) {
+                bullets.splice(i, 1);
+                i--;
+            }
+            bullets[i].deadtime++;
+        }
+
     }
 }
 
@@ -135,6 +135,7 @@ function setKey(keyCode, value) {
         case 83: dkey = value; break;
         case 37: rleft = value; break;
         case 39: rright = value; break;
+        case 32: fire = value; break;
         default: break;
     }
 }
@@ -157,9 +158,10 @@ function canmove(p1, p2) {
 }
 
 function move() {
+    time++;
     var nxpos, nypos;
 
-    var step = (lkey && (ukey || dkey) || rkey && (ukey || dkey)) ? Math.sqrt(2) / 2 : 1;
+    var step = (lkey && (ukey || dkey) || rkey && (ukey || dkey)) ? (Math.sqrt(2) / 2)*dudev : dudev;
     if (lkey) {
         nxpos = xpos - Math.sin(alpha + Math.PI / 2) * step;
         nypos = ypos - Math.cos(alpha + Math.PI / 2) * step;
@@ -198,9 +200,17 @@ function move() {
     if (rright) {
         alpha -= 0.015;
     }
-    //if (rkey) { ypos -= Math.cos(alpha - Math.PI / 2); xpos -= Math.sin(alpha - Math.PI / 2); }
-    //if (ukey) { ypos -= Math.cos(alpha); xpos -= Math.sin(alpha); }
-    //if (dkey) { ypos += Math.cos(alpha); xpos += Math.sin(alpha); }
+    if (fire) {
+        if (time - firetime > 20) {
+            bullets[bullets.length] = { x : xpos,
+                                        y : ypos,
+                                        a : -alpha - Math.PI / 2,
+                                        v : 3.2,
+                                        moving : true,
+                                        deadtime : 0 };
+            firetime = time;
+        }
+    }
     redraw();
 }
 
@@ -214,12 +224,7 @@ function catchKeyDown(event) {
         keyCode = event.keyCode;
         event.preventDefault();
     }
-    if (keyCode === 32) {
-        bullets[bullets.length] = { x : xpos, y : ypos, a : -alpha - Math.PI / 2, v : 1.2, moving : true };
-    }
-    else {
-        setKey(keyCode, true);
-    }
+    setKey(keyCode, true);
 }
 
 function catchKeyUp(event) {
@@ -235,32 +240,7 @@ function catchKeyUp(event) {
     setKey(keyCode, false);
 }
 
-function catchMouseMove(event) {
-    if (lastmy === -1) {
-        lastmx = event.clientX;
-        lastmy = event.clientY;
-    }
-    else {
-        if (event.clientX < lastmx || (event.clientX === lastmx && lastmx == 0)) {
-            alpha += 0.015;
-        }
-        else if (event.clientX > lastmx || (event.clientX === lastmx && lastmx > 1000)) {
-            alpha -= 0.015;
-        }
-        lastmx = event.clientX;
-        lastmy = event.clientY;
-    }
-}
-
-function catchMouseDown(event) {
-    bullets[bullets.length] = { x : xpos, y : ypos, a : -alpha - Math.PI / 2, v : 1.2, moving : true };
-}
-
 function rotatePoint(p) {
     return { x : Math.cos(alpha)*(p.x - xpos) - Math.sin(alpha)*(p.y - ypos) + xshift,
              y : Math.sin(alpha)*(p.x - xpos) + Math.cos(alpha)*(p.y - ypos) + yshift };
-}
-
-function appendText(text) {
-    document.getElementById("body").appendChild(document.createTextNode(text));
 }
