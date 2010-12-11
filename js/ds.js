@@ -14,8 +14,38 @@ var arear = 300;
 var areab = 300;
 var dudev = 2.0;
 
+var lastMouseX = -1;
+var lastMouseY = -1;
+var myIter = 0;
+
+function mouseX(e) {
+    if (!e) e = window.event;
+    if (e.clientX === lastMouseX === 0) alpha -= 0.015;
+    else if (e.clientX > lastMouseX) alpha += 0.015;
+    else if (e.clientX < lastMouseX) alpha -= 0.015;
+    lastMouseX = e.clientX;
+
+    document.getElementById("text").value = e.pageX + " : " + e.pageY + " : " + myIter++;
+
+    if (event.preventDefault)
+        event.preventDefault();
+    else
+        event.returnValue= false;
+    return false;
+}
+
 function hw() {
+//    canvas = document.getElementById("viewport");
+//    canvas.width = document.width;
+//    canvas.height = document.height;
+    
     viewport = document.getElementById("viewport");
+    /*viewport.onmousemove = function test(e) {
+        if (!e) e = window.event;
+        if (e.pageX > lastMouseX) alpha += 0.015;
+        else if (e.pageX < lastMouseX) alpha -= 0.015;
+        lastMouseX = e.pageX;
+    };*/
     ctx = viewport.getContext("2d");
     window.addEventListener("keydown", catchKeyDown, false);
     window.addEventListener("keyup", catchKeyUp, false);

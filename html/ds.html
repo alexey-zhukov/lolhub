@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" onmousemove="mouseX()">
     <head>
         <meta charset="utf-8" />
         <title>Deadly Stuff</title>
@@ -7,11 +7,14 @@
         <script type="text/javascript" src="/js/ds.js"></script>
         <link rel="shortcut icon" href="favicon-ds.ico">
     </head>
-    <body id="body" onload="hw()">
+    <body id="body" onload="hw()" style="nocursor">
         <p>Welcome to Deadly Stuff</p>
+		<p align="center"><input type="text" id="text"/></p>
         W, S, A, D - move dude<br />
         Left, Right - rotate view<br />
         Space - fire weapon<br />
         <canvas id="viewport" class="viewport" width=600 height=360>Your browser doesn't support canvas, dude.</canvas>
+		
     </body>
+	
 </html>
