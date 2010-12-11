@@ -11,6 +11,7 @@ import helper
 import comments
 import js
 import xpass
+import ds
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -57,6 +58,7 @@ application = webapp.WSGIApplication([
         ('/accessdenied', AccessDenied),
         ('/saveyourloluser', SaveYourLoluser),
         ('/js1', js.Js1),
+        ('/deadly-stuff', ds.DeadlyStuff),
         ('/xpass', xpass.Xpass),
         (r'/.*', NotFound),
 

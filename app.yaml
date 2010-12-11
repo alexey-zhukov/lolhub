@@ -9,6 +9,11 @@ handlers:
   upload: favicon/favicon.ico
   secure: always
 
+- url: /favicon-ds.ico
+  static_files: favicon/favicon-ds.ico
+  upload: favicon/favicon-ds.ico
+  secure: always
+
 - url: /css
   static_dir: css
   secure: always
